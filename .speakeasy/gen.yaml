@@ -15,18 +15,18 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
 java:
-  version: 0.0.6
+  version: 0.0.7
   additionalDependencies: []
   additionalPlugins: []
   artifactID: esv
   clientServerStatusCodesAsErrors: true
   companyEmail: info@mycompany.com
-  companyName: My Company
-  companyURL: www.mycompany.com
+  companyName: walker-tx
+  companyURL: github.com/walker-tx
   defaultErrorName: APIException
   flattenGlobalSecurity: true
-  githubURL: github.com/owner/repo
-  groupID: dev.walkertx
+  githubURL: github.com/walker-tx/esv-sdk-java
+  groupID: io.github.walker-tx
   imports:
     option: openapi
     paths:
@@ -42,5 +42,5 @@ java:
     url: https://mit-license.org/
   maxMethodParams: 4
   outputModelSuffix: output
-  projectName: openapi
+  projectName: esv
   templateVersion: v2

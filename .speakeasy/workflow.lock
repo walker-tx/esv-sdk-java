@@ -2,7 +2,7 @@ speakeasyVersion: 1.509.1
 sources:
     Esv-OAS:
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:65a95ae5068120f2cca9b5375bcaa3e44b03ecfe0fe0493b9ea3e8b9615ffa43
+        sourceRevisionDigest: sha256:881dfdd7bfeb4fb4056d59d2f3d69d49293aa076b68817415b5f1940c64cc903
         sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     esv:
         source: Esv-OAS
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:65a95ae5068120f2cca9b5375bcaa3e44b03ecfe0fe0493b9ea3e8b9615ffa43
+        sourceRevisionDigest: sha256:881dfdd7bfeb4fb4056d59d2f3d69d49293aa076b68817415b5f1940c64cc903
         sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
         codeSamplesNamespace: esv-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:55f5c08483e6840fe85792911292d2657fe3989aeba327dbb1ac3653d8ce66b6
+        codeSamplesRevisionDigest: sha256:03c5e928fc281f2a9f61301dcb540adeaf4f93493d8f757360c93a9c483978fd
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -30,6 +30,12 @@ workflow:
         esv:
             target: java
             source: Esv-OAS
+            publish:
+                java:
+                    ossrhUsername: $ossrh_username
+                    ossrhPassword: $ossrh_password
+                    gpgSecretKey: $java_gpg_secret_key
+                    gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/walker/esv/esv-oas-java-code-samples

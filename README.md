@@ -52,15 +52,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'dev.walkertx:esv:0.0.6'
+implementation 'io.github.walker-tx:esv:0.0.7'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>dev.walkertx</groupId>
+    <groupId>io.github.walker-tx</groupId>
     <artifactId>esv</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
 
@@ -87,10 +87,10 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -132,10 +132,10 @@ To authenticate with the API the `apiKey` parameter must be set when initializin
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -190,8 +190,8 @@ Here's an example of one such pagination call:
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
 import java.lang.Exception;
 
 public class Application {
@@ -233,10 +233,10 @@ By default, an API error will throw a `models/errors/APIException` exception. Wh
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -272,10 +272,10 @@ The default server can be overridden globally using the `.serverURL(String serve
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {

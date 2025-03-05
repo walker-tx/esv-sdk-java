@@ -2,10 +2,10 @@
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {

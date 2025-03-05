@@ -22,10 +22,10 @@ Esv.org API Docs for `/v3/passages/html`
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageHtmlRequest;
-import dev.walkertx.esv.models.operations.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -80,8 +80,8 @@ Esv.org API Docs for `/v3/passage/search`
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
 import java.lang.Exception;
 
 public class Application {
@@ -136,9 +136,9 @@ Esv.org API Docs for `/v3/passage/audio`
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageAudioResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageAudioResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -189,10 +189,10 @@ Esv.org API Docs for `/v3/passages/text`
 ```java
 package hello.world;
 
-import dev.walkertx.esv.Esv;
-import dev.walkertx.esv.models.errors.Error;
-import dev.walkertx.esv.models.operations.GetPassageTextRequest;
-import dev.walkertx.esv.models.operations.GetPassageTextResponse;
+import io.github.walker_tx.esv.Esv;
+import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.GetPassageTextRequest;
+import io.github.walker_tx.esv.models.operations.GetPassageTextResponse;
 import java.lang.Exception;
 
 public class Application {
