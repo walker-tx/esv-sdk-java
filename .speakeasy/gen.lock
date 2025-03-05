@@ -1,0 +1,610 @@
+lockVersion: 2.0.0
+id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
+management:
+  docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
+  docVersion: 1.0.0
+  speakeasyVersion: 1.509.1
+  generationVersion: 2.539.1
+  releaseVersion: 0.0.6
+  configChecksum: 58deee9d3f0adc2c1a71d386dda2f65a
+features:
+  java:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.1
+    core: 3.34.0
+    downloadStreams: 0.1.1
+    flattening: 2.81.1
+    globalSecurity: 2.82.8
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.1
+    nameOverrides: 2.81.3
+    pagination: 0.2.2
+    sdkHooks: 0.1.0
+generatedFiles:
+  - .gitattributes
+  - USAGE.md
+  - build.gradle
+  - docs/models/components/PassageMeta.md
+  - docs/models/components/PassageResponse.md
+  - docs/models/components/Security.md
+  - docs/models/errors/Error.md
+  - docs/models/operations/GetPassageAudioRequest.md
+  - docs/models/operations/GetPassageAudioResponse.md
+  - docs/models/operations/GetPassageHtmlRequest.md
+  - docs/models/operations/GetPassageHtmlResponse.md
+  - docs/models/operations/GetPassageTextRequest.md
+  - docs/models/operations/GetPassageTextResponse.md
+  - docs/models/operations/IndentUsing.md
+  - docs/models/operations/Results.md
+  - docs/models/operations/SearchPassagesRequest.md
+  - docs/models/operations/SearchPassagesResponse.md
+  - docs/models/operations/SearchPassagesResponseBody.md
+  - docs/models/operations/Verses.md
+  - docs/sdks/esv/README.md
+  - docs/sdks/passages/README.md
+  - gradle/wrapper/gradle-wrapper.jar
+  - gradle/wrapper/gradle-wrapper.properties
+  - gradlew
+  - gradlew.bat
+  - settings.gradle
+  - src/main/java/dev/walkertx/esv/Esv.java
+  - src/main/java/dev/walkertx/esv/Passages.java
+  - src/main/java/dev/walkertx/esv/SDKConfiguration.java
+  - src/main/java/dev/walkertx/esv/SecuritySource.java
+  - src/main/java/dev/walkertx/esv/models/components/PassageMeta.java
+  - src/main/java/dev/walkertx/esv/models/components/PassageResponse.java
+  - src/main/java/dev/walkertx/esv/models/components/Security.java
+  - src/main/java/dev/walkertx/esv/models/errors/APIException.java
+  - src/main/java/dev/walkertx/esv/models/errors/AuthException.java
+  - src/main/java/dev/walkertx/esv/models/errors/Error.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageAudioRequest.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageAudioRequestBuilder.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageAudioResponse.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageHtmlRequest.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageHtmlRequestBuilder.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageHtmlResponse.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageTextRequest.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageTextRequestBuilder.java
+  - src/main/java/dev/walkertx/esv/models/operations/GetPassageTextResponse.java
+  - src/main/java/dev/walkertx/esv/models/operations/IndentUsing.java
+  - src/main/java/dev/walkertx/esv/models/operations/Results.java
+  - src/main/java/dev/walkertx/esv/models/operations/SDKMethodInterfaces.java
+  - src/main/java/dev/walkertx/esv/models/operations/SearchPassagesRequest.java
+  - src/main/java/dev/walkertx/esv/models/operations/SearchPassagesRequestBuilder.java
+  - src/main/java/dev/walkertx/esv/models/operations/SearchPassagesResponse.java
+  - src/main/java/dev/walkertx/esv/models/operations/SearchPassagesResponseBody.java
+  - src/main/java/dev/walkertx/esv/models/operations/Verses.java
+  - src/main/java/dev/walkertx/esv/utils/BackoffStrategy.java
+  - src/main/java/dev/walkertx/esv/utils/BigDecimalString.java
+  - src/main/java/dev/walkertx/esv/utils/BigIntegerString.java
+  - src/main/java/dev/walkertx/esv/utils/Deserializers.java
+  - src/main/java/dev/walkertx/esv/utils/EventStream.java
+  - src/main/java/dev/walkertx/esv/utils/EventStreamLineReader.java
+  - src/main/java/dev/walkertx/esv/utils/EventStreamMessage.java
+  - src/main/java/dev/walkertx/esv/utils/EventStreamReader.java
+  - src/main/java/dev/walkertx/esv/utils/FormMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/HTTPClient.java
+  - src/main/java/dev/walkertx/esv/utils/HTTPRequest.java
+  - src/main/java/dev/walkertx/esv/utils/HeaderMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/Helpers.java
+  - src/main/java/dev/walkertx/esv/utils/Hook.java
+  - src/main/java/dev/walkertx/esv/utils/Hooks.java
+  - src/main/java/dev/walkertx/esv/utils/JSON.java
+  - src/main/java/dev/walkertx/esv/utils/LazySingletonValue.java
+  - src/main/java/dev/walkertx/esv/utils/Metadata.java
+  - src/main/java/dev/walkertx/esv/utils/Multipart.java
+  - src/main/java/dev/walkertx/esv/utils/MultipartFormMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/NameValue.java
+  - src/main/java/dev/walkertx/esv/utils/OneOfDeserializer.java
+  - src/main/java/dev/walkertx/esv/utils/Options.java
+  - src/main/java/dev/walkertx/esv/utils/PathParamsMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/QueryEncoding.java
+  - src/main/java/dev/walkertx/esv/utils/QueryParameter.java
+  - src/main/java/dev/walkertx/esv/utils/QueryParameters.java
+  - src/main/java/dev/walkertx/esv/utils/QueryParamsMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/RecordingClient.java
+  - src/main/java/dev/walkertx/esv/utils/RequestBody.java
+  - src/main/java/dev/walkertx/esv/utils/RequestMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/Response.java
+  - src/main/java/dev/walkertx/esv/utils/Retries.java
+  - src/main/java/dev/walkertx/esv/utils/RetryConfig.java
+  - src/main/java/dev/walkertx/esv/utils/Security.java
+  - src/main/java/dev/walkertx/esv/utils/SecurityMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/SerializedBody.java
+  - src/main/java/dev/walkertx/esv/utils/SessionManager.java
+  - src/main/java/dev/walkertx/esv/utils/SpeakeasyHTTPClient.java
+  - src/main/java/dev/walkertx/esv/utils/SpeakeasyMetadata.java
+  - src/main/java/dev/walkertx/esv/utils/TypedObject.java
+  - src/main/java/dev/walkertx/esv/utils/Types.java
+  - src/main/java/dev/walkertx/esv/utils/Utf8UrlEncoder.java
+  - src/main/java/dev/walkertx/esv/utils/Utils.java
+examples:
+  getPassageHtml:
+    StandardReference:
+      parameters:
+        query:
+          q: "John 1:1"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    CompactNotation:
+      parameters:
+        query:
+          q: "jn11.35"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    ChapterRange:
+      parameters:
+        query:
+          q: "Genesis 1-3"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    NumericalEncoding:
+      parameters:
+        query:
+          q: "43011035"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    DigitalRange:
+      parameters:
+        query:
+          q: "01001001-01011032"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    MultiReference:
+      parameters:
+        query:
+          q: "John1.1;Genesis1.1"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    StructuredDigital:
+      parameters:
+        query:
+          q: "19001001-19001006,19003001-19003008"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    "":
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+  searchPassages:
+    speakeasy-default-search-passages:
+      parameters:
+        query:
+          q: "<value>"
+          page-size: 20
+          page: 1
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+  getPassageAudio:
+    StandardReference:
+      parameters:
+        query:
+          q: "John 1:1"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    CompactNotation:
+      parameters:
+        query:
+          q: "jn11.35"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    ChapterRange:
+      parameters:
+        query:
+          q: "Genesis 1-3"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    NumericalEncoding:
+      parameters:
+        query:
+          q: "43011035"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    DigitalRange:
+      parameters:
+        query:
+          q: "01001001-01011032"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    MultiReference:
+      parameters:
+        query:
+          q: "John1.1;Genesis1.1"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    StructuredDigital:
+      parameters:
+        query:
+          q: "19001001-19001006,19003001-19003008"
+      responses:
+        "200":
+          audio/mpeg: "x-file: example.file"
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+  getPassageText:
+    StandardReference:
+      parameters:
+        query:
+          q: "John 1:1"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    CompactNotation:
+      parameters:
+        query:
+          q: "jn11.35"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    ChapterRange:
+      parameters:
+        query:
+          q: "Genesis 1-3"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    NumericalEncoding:
+      parameters:
+        query:
+          q: "43011035"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    DigitalRange:
+      parameters:
+        query:
+          q: "01001001-01011032"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    MultiReference:
+      parameters:
+        query:
+          q: "John1.1;Genesis1.1"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    StructuredDigital:
+      parameters:
+        query:
+          q: "19001001-19001006,19003001-19003008"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+    "":
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+        "200": {}
+examplesVersion: 1.0.0
+generatedTests: {}

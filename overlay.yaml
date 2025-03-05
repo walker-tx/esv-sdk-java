@@ -1,0 +1,16 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+    title: example overlay
+    version: 0.0.0
+actions:
+    - target: $["paths"]["/passage/search/"]["get"]["parameters"][1]["schema"]["required"]
+      remove: true
+    - target: $["paths"]["/passage/search/"]["get"]["parameters"][1]
+      update:
+        required: true
+    - target: $["paths"]["/passage/search/"]["get"]["parameters"][2]["schema"]["required"]
+      remove: true
+    - target: $["paths"]["/passage/search/"]["get"]["parameters"][2]
+      update:
+        required: true

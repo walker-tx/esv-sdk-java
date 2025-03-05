@@ -1,0 +1,38 @@
+speakeasyVersion: 1.509.1
+sources:
+    Esv-OAS:
+        sourceNamespace: esv-oas
+        sourceRevisionDigest: sha256:65a95ae5068120f2cca9b5375bcaa3e44b03ecfe0fe0493b9ea3e8b9615ffa43
+        sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    esv:
+        source: Esv-OAS
+        sourceNamespace: esv-oas
+        sourceRevisionDigest: sha256:65a95ae5068120f2cca9b5375bcaa3e44b03ecfe0fe0493b9ea3e8b9615ffa43
+        sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
+        codeSamplesNamespace: esv-oas-java-code-samples
+        codeSamplesRevisionDigest: sha256:55f5c08483e6840fe85792911292d2657fe3989aeba327dbb1ac3653d8ce66b6
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Esv-OAS:
+            inputs:
+                - location: registry.speakeasyapi.dev/walker/esv/esv-org-api:main
+            overlays:
+                - location: overlay.yaml
+            registry:
+                location: registry.speakeasyapi.dev/walker/esv/esv-oas
+    targets:
+        esv:
+            target: java
+            source: Esv-OAS
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/walker/esv/esv-oas-java-code-samples
+                labelOverride:
+                    fixedValue: Java (SDK)
+                blocking: false
