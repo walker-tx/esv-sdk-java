@@ -15,7 +15,7 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Verses {
+public class Verse {
 
     /**
      * Verse reference
@@ -32,7 +32,7 @@ public class Verses {
     private Optional<String> text;
 
     @JsonCreator
-    public Verses(
+    public Verse(
             @JsonProperty("verse") Optional<String> verse,
             @JsonProperty("text") Optional<String> text) {
         Utils.checkNotNull(verse, "verse");
@@ -41,7 +41,7 @@ public class Verses {
         this.text = text;
     }
     
-    public Verses() {
+    public Verse() {
         this(Optional.empty(), Optional.empty());
     }
 
@@ -68,7 +68,7 @@ public class Verses {
     /**
      * Verse reference
      */
-    public Verses withVerse(String verse) {
+    public Verse withVerse(String verse) {
         Utils.checkNotNull(verse, "verse");
         this.verse = Optional.ofNullable(verse);
         return this;
@@ -77,7 +77,7 @@ public class Verses {
     /**
      * Verse reference
      */
-    public Verses withVerse(Optional<String> verse) {
+    public Verse withVerse(Optional<String> verse) {
         Utils.checkNotNull(verse, "verse");
         this.verse = verse;
         return this;
@@ -86,7 +86,7 @@ public class Verses {
     /**
      * Verse text
      */
-    public Verses withText(String text) {
+    public Verse withText(String text) {
         Utils.checkNotNull(text, "text");
         this.text = Optional.ofNullable(text);
         return this;
@@ -95,7 +95,7 @@ public class Verses {
     /**
      * Verse text
      */
-    public Verses withText(Optional<String> text) {
+    public Verse withText(Optional<String> text) {
         Utils.checkNotNull(text, "text");
         this.text = text;
         return this;
@@ -109,7 +109,7 @@ public class Verses {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Verses other = (Verses) o;
+        Verse other = (Verse) o;
         return 
             Objects.deepEquals(this.verse, other.verse) &&
             Objects.deepEquals(this.text, other.text);
@@ -124,7 +124,7 @@ public class Verses {
     
     @Override
     public String toString() {
-        return Utils.toString(Verses.class,
+        return Utils.toString(Verse.class,
                 "verse", verse,
                 "text", text);
     }
@@ -175,8 +175,8 @@ public class Verses {
             return this;
         }
         
-        public Verses build() {
-            return new Verses(
+        public Verse build() {
+            return new Verse(
                 verse,
                 text);
         }

@@ -46,14 +46,14 @@ public class SearchPassagesResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("results")
-    private Optional<? extends List<Results>> results;
+    private Optional<? extends List<Result>> results;
 
     @JsonCreator
     public SearchPassagesResponseBody(
             @JsonProperty("page") Optional<Long> page,
             @JsonProperty("total_pages") Optional<Long> totalPages,
             @JsonProperty("total_results") Optional<Long> totalResults,
-            @JsonProperty("results") Optional<? extends List<Results>> results) {
+            @JsonProperty("results") Optional<? extends List<Result>> results) {
         Utils.checkNotNull(page, "page");
         Utils.checkNotNull(totalPages, "totalPages");
         Utils.checkNotNull(totalResults, "totalResults");
@@ -94,8 +94,8 @@ public class SearchPassagesResponseBody {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Results>> results() {
-        return (Optional<List<Results>>) results;
+    public Optional<List<Result>> results() {
+        return (Optional<List<Result>>) results;
     }
 
     public final static Builder builder() {
@@ -156,13 +156,13 @@ public class SearchPassagesResponseBody {
         return this;
     }
 
-    public SearchPassagesResponseBody withResults(List<Results> results) {
+    public SearchPassagesResponseBody withResults(List<Result> results) {
         Utils.checkNotNull(results, "results");
         this.results = Optional.ofNullable(results);
         return this;
     }
 
-    public SearchPassagesResponseBody withResults(Optional<? extends List<Results>> results) {
+    public SearchPassagesResponseBody withResults(Optional<? extends List<Result>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
         return this;
@@ -210,7 +210,7 @@ public class SearchPassagesResponseBody {
  
         private Optional<Long> totalResults = Optional.empty();
  
-        private Optional<? extends List<Results>> results = Optional.empty();  
+        private Optional<? extends List<Result>> results = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -270,13 +270,13 @@ public class SearchPassagesResponseBody {
             return this;
         }
 
-        public Builder results(List<Results> results) {
+        public Builder results(List<Result> results) {
             Utils.checkNotNull(results, "results");
             this.results = Optional.ofNullable(results);
             return this;
         }
 
-        public Builder results(Optional<? extends List<Results>> results) {
+        public Builder results(Optional<? extends List<Result>> results) {
             Utils.checkNotNull(results, "results");
             this.results = results;
             return this;
