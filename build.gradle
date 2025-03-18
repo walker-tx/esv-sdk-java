@@ -41,7 +41,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "esv"
+    archiveBaseName = "${artifactId}"
 
     into("META-INF/maven/io.github.walker-tx/esv") {
         from("$buildDir/pom.xml")
@@ -62,15 +62,12 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 
-group = "io.github.walker-tx"
-version = "0.0.7"
-
 sourcesJar {
-    archiveBaseName = "esv"
+    archiveBaseName = "${groupId}"
 }
 
 javadocJar {
-    archiveBaseName = "esv"
+    archiveBaseName = "${artifactId}"
 }
 sonatypeCentralUpload {
     // This is your Sonatype generated username
@@ -80,9 +77,9 @@ sonatypeCentralUpload {
 
     // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
     archives = files(
-      "$buildDir/libs/esv-${version}.jar",
-      "$buildDir/libs/esv-${version}-sources.jar",
-      "$buildDir/libs/esv-${version}-javadoc.jar"
+      "$buildDir/libs/${artifactId}-${version}.jar",
+      "$buildDir/libs/${artifactId}-${version}-sources.jar",
+      "$buildDir/libs/${artifactId}-${version}-javadoc.jar"
     )
 
     // This is the pom file to upload. This is required by central
@@ -99,15 +96,17 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            groupId = 'io.github.walker-tx'
-            artifactId = 'esv'
-            version = '0.0.7'
+            // note that properties can't yet be used below!
+            // https://github.com/gradle/gradle/issues/18619
+            groupId = "io.github.walker-tx"
+            artifactId = "esv"
+            version = "0.1.0"
 
             from components.java
 
             pom {
-                name = 'My Company Java SDK'
-                description = 'SDK enabling Java developers to easily integrate with the My Company API.'
+                name = 'walker-tx Java SDK'
+                description = 'SDK enabling Java developers to easily integrate with the walker-tx API.'
                 url = 'https://github.com/walker-tx/esv-sdk-java'
                 scm {
                     url = 'github.com/walker-tx/esv-sdk-java'
@@ -121,13 +120,13 @@ publishing {
                 }
                 developers {
                     developer {
-                        name = 'My Company'
-                        organization = 'My Company'
+                        name = 'walker-tx'
+                        organization = 'walker-tx'
                         email = 'info@mycompany.com'
                     }
                 }
                 organization {
-                    name = 'My Company'
+                    name = 'walker-tx'
                     url = 'github.com/walker-tx'
                 }
             }

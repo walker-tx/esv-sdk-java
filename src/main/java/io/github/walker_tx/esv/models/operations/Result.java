@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Results {
+public class Result {
 
     /**
      * The passage reference
@@ -35,13 +35,13 @@ public class Results {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verses")
-    private Optional<? extends List<Verses>> verses;
+    private Optional<? extends List<Verse>> verses;
 
     @JsonCreator
-    public Results(
+    public Result(
             @JsonProperty("reference") Optional<String> reference,
             @JsonProperty("content") Optional<String> content,
-            @JsonProperty("verses") Optional<? extends List<Verses>> verses) {
+            @JsonProperty("verses") Optional<? extends List<Verse>> verses) {
         Utils.checkNotNull(reference, "reference");
         Utils.checkNotNull(content, "content");
         Utils.checkNotNull(verses, "verses");
@@ -50,7 +50,7 @@ public class Results {
         this.verses = verses;
     }
     
-    public Results() {
+    public Result() {
         this(Optional.empty(), Optional.empty(), Optional.empty());
     }
 
@@ -72,8 +72,8 @@ public class Results {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Verses>> verses() {
-        return (Optional<List<Verses>>) verses;
+    public Optional<List<Verse>> verses() {
+        return (Optional<List<Verse>>) verses;
     }
 
     public final static Builder builder() {
@@ -83,7 +83,7 @@ public class Results {
     /**
      * The passage reference
      */
-    public Results withReference(String reference) {
+    public Result withReference(String reference) {
         Utils.checkNotNull(reference, "reference");
         this.reference = Optional.ofNullable(reference);
         return this;
@@ -92,7 +92,7 @@ public class Results {
     /**
      * The passage reference
      */
-    public Results withReference(Optional<String> reference) {
+    public Result withReference(Optional<String> reference) {
         Utils.checkNotNull(reference, "reference");
         this.reference = reference;
         return this;
@@ -101,7 +101,7 @@ public class Results {
     /**
      * The matching passage content
      */
-    public Results withContent(String content) {
+    public Result withContent(String content) {
         Utils.checkNotNull(content, "content");
         this.content = Optional.ofNullable(content);
         return this;
@@ -110,19 +110,19 @@ public class Results {
     /**
      * The matching passage content
      */
-    public Results withContent(Optional<String> content) {
+    public Result withContent(Optional<String> content) {
         Utils.checkNotNull(content, "content");
         this.content = content;
         return this;
     }
 
-    public Results withVerses(List<Verses> verses) {
+    public Result withVerses(List<Verse> verses) {
         Utils.checkNotNull(verses, "verses");
         this.verses = Optional.ofNullable(verses);
         return this;
     }
 
-    public Results withVerses(Optional<? extends List<Verses>> verses) {
+    public Result withVerses(Optional<? extends List<Verse>> verses) {
         Utils.checkNotNull(verses, "verses");
         this.verses = verses;
         return this;
@@ -136,7 +136,7 @@ public class Results {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Results other = (Results) o;
+        Result other = (Result) o;
         return 
             Objects.deepEquals(this.reference, other.reference) &&
             Objects.deepEquals(this.content, other.content) &&
@@ -153,7 +153,7 @@ public class Results {
     
     @Override
     public String toString() {
-        return Utils.toString(Results.class,
+        return Utils.toString(Result.class,
                 "reference", reference,
                 "content", content,
                 "verses", verses);
@@ -165,7 +165,7 @@ public class Results {
  
         private Optional<String> content = Optional.empty();
  
-        private Optional<? extends List<Verses>> verses = Optional.empty();  
+        private Optional<? extends List<Verse>> verses = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -207,20 +207,20 @@ public class Results {
             return this;
         }
 
-        public Builder verses(List<Verses> verses) {
+        public Builder verses(List<Verse> verses) {
             Utils.checkNotNull(verses, "verses");
             this.verses = Optional.ofNullable(verses);
             return this;
         }
 
-        public Builder verses(Optional<? extends List<Verses>> verses) {
+        public Builder verses(Optional<? extends List<Verse>> verses) {
             Utils.checkNotNull(verses, "verses");
             this.verses = verses;
             return this;
         }
         
-        public Results build() {
-            return new Results(
+        public Result build() {
+            return new Result(
                 reference,
                 content,
                 verses);
