@@ -1,5 +1,5 @@
 workflowVersion: 1.0.0
-speakeasyVersion: v1.518.0
+speakeasyVersion: v1.517.3
 sources:
     Esv-OAS:
         inputs:
