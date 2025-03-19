@@ -41,7 +41,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "${artifactId}"
+    archiveBaseName = "esv"
 
     into("META-INF/maven/io.github.walker-tx/esv") {
         from("$buildDir/pom.xml")
@@ -62,12 +62,15 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 
+group = "io.github.walker-tx"
+version = "0.1.3"
+
 sourcesJar {
-    archiveBaseName = "${groupId}"
+    archiveBaseName = "esv"
 }
 
 javadocJar {
-    archiveBaseName = "${artifactId}"
+    archiveBaseName = "esv"
 }
 sonatypeCentralUpload {
     // This is your Sonatype generated username
@@ -77,9 +80,9 @@ sonatypeCentralUpload {
 
     // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
     archives = files(
-      "$buildDir/libs/${artifactId}-${version}.jar",
-      "$buildDir/libs/${artifactId}-${version}-sources.jar",
-      "$buildDir/libs/${artifactId}-${version}-javadoc.jar"
+      "$buildDir/libs/esv-${version}.jar",
+      "$buildDir/libs/esv-${version}-sources.jar",
+      "$buildDir/libs/esv-${version}-javadoc.jar"
     )
 
     // This is the pom file to upload. This is required by central
@@ -96,11 +99,9 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            // note that properties can't yet be used below!
-            // https://github.com/gradle/gradle/issues/18619
-            groupId = "io.github.walker-tx"
-            artifactId = "esv"
-            version = "0.1.2"
+            groupId = 'io.github.walker-tx'
+            artifactId = 'esv'
+            version = '0.1.3'
 
             from components.java
 

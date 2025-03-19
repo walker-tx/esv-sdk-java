@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.walker_tx.esv.models.errors.APIException;
 import io.github.walker_tx.esv.utils.LazySingletonValue;
 import io.github.walker_tx.esv.utils.Utils;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;

@@ -29,3 +29,13 @@ Based on:
 - [java v0.1.2] .
 ### Releases
 - [Maven Central v0.1.2] https://central.sonatype.com/artifact/io.github.walker-tx/esv/0.1.2 - .
+
+## 2025-03-19 00:48:17
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.517.3 (2.548.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.1.3] .
+### Releases
+- [Maven Central v0.1.3] https://central.sonatype.com/artifact/io.github.walker-tx/esv/0.1.3 - .
