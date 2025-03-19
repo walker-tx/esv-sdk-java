@@ -26,6 +26,8 @@ repositories {
     mavenCentral()
 }
 
+version = '0.1.1'
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -41,7 +43,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "${artifactId}"
+    archiveBaseName = "esv"
 
     into("META-INF/maven/io.github.walker-tx/esv") {
         from("$buildDir/pom.xml")
@@ -63,11 +65,11 @@ tasks.withType(Javadoc) {
 }
 
 sourcesJar {
-    archiveBaseName = "${artifactId}"
+    archiveBaseName = "esv"
 }
 
 javadocJar {
-    archiveBaseName = "${artifactId}"
+    archiveBaseName = "esv"
 }
 sonatypeCentralUpload {
     // This is your Sonatype generated username
@@ -77,9 +79,9 @@ sonatypeCentralUpload {
 
     // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
     archives = files(
-      "$buildDir/libs/${artifactId}-${version}.jar",
-      "$buildDir/libs/${artifactId}-${version}-sources.jar",
-      "$buildDir/libs/${artifactId}-${version}-javadoc.jar"
+      "$buildDir/libs/esv-0.1.1.jar",
+      "$buildDir/libs/esv-0.1.1-sources.jar",
+      "$buildDir/libs/esv-0.1.1-javadoc.jar"
     )
 
     // This is the pom file to upload. This is required by central
