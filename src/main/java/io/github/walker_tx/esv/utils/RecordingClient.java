@@ -12,15 +12,14 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
 // internal testing use
 public final class RecordingClient implements HTTPClient {
 
     private final List<HttpRequest> requests = new CopyOnWriteArrayList<>();
     private final HTTPClient client;
-    private final List<UnaryOperator<HttpRequest>> beforeRequestHooks = new ArrayList<>();
-    private final List<UnaryOperator<HttpResponse<InputStream>>> afterResponseHooks = new ArrayList<>();
+    private final List<Function<HttpRequest, HttpRequest>> beforeRequestHooks = new ArrayList<>();
 
     public RecordingClient() {
         this.client = new SpeakeasyHTTPClient();
@@ -29,28 +28,19 @@ public final class RecordingClient implements HTTPClient {
     @Override
     public HttpResponse<InputStream> send(HttpRequest request)
             throws IOException, InterruptedException, URISyntaxException {
-        for (var hook : beforeRequestHooks) {
+        for (Function<HttpRequest, HttpRequest> hook : beforeRequestHooks) {
             request = hook.apply(request);
         }
         requests.add(request);
-        var response = client.send(request);
-        for (var hook: afterResponseHooks) {
-            response = hook.apply(response);
-        }
-        return response;
+        return client.send(request);
     }
 
     public List<HttpRequest> requests() {
         return requests;
     }
 
-    public RecordingClient beforeRequest(UnaryOperator<HttpRequest> hook) {
+    public RecordingClient beforeRequest(Function<HttpRequest, HttpRequest> hook) {
         beforeRequestHooks.add(hook);
-        return this;
-    }
-    
-    public RecordingClient afterResponse(UnaryOperator<HttpResponse<InputStream>> hook) {
-        afterResponseHooks.add(hook);
         return this;
     }
 

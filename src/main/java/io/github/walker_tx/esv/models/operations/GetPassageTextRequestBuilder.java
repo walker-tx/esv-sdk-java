@@ -5,7 +5,6 @@
 package io.github.walker_tx.esv.models.operations;
 
 import io.github.walker_tx.esv.utils.Utils;
-import java.lang.Exception;
 
 public class GetPassageTextRequestBuilder {
 

@@ -120,7 +120,7 @@ public final class Security {
                         break;
                     default:
                         throw new RuntimeException(
-                                "Unsupported apiKey security scheme subtype: " + securityMetadata.subtype);
+                                "Unsupported security scheme subtype for apiKey: " + securityMetadata.subtype);
                 }
                 break;
             case "openIdConnect":
@@ -137,11 +137,11 @@ public final class Security {
                         request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
                         break;
                     default:
-                        throw new RuntimeException("Unsupported http security scheme subtype: " + schemeMetadata.subtype);
+                        throw new RuntimeException("Unsupported security scheme subtype for bearer");
                 }
                 break;
             default:
-                throw new RuntimeException("Unsupported security scheme type: " + schemeMetadata.subtype);
+                throw new RuntimeException("Unsupported security scheme type");
         }
     }
 
