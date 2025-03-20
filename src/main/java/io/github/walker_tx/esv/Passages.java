@@ -5,7 +5,9 @@
 package io.github.walker_tx.esv;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
 import com.jayway.jsonpath.ReadContext;
 import io.github.walker_tx.esv.models.components.PassageResponse;
 import io.github.walker_tx.esv.models.errors.APIException;
@@ -302,14 +304,14 @@ public class Passages implements
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes)
                 .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
                     if (request == null) {
                         return Optional.empty();
                     }
+                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
+                    Configuration _config = Configuration.defaultConfiguration()
+                            .addOptions(Option.SUPPRESS_EXCEPTIONS);
+                    ReadContext _body = JsonPath.using(_config).parse(_stringBody);
                     long _newPage = page + 1;
-                    
                     long _numPages = _body.read("$.total_pages", Long.class);
 
                     if (_numPages <= page) {

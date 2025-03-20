@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.517.3
-  generationVersion: 2.548.6
-  releaseVersion: 0.1.3
-  configChecksum: d53275027f0dbd2990081ecf9793296f
+  speakeasyVersion: 1.521.0
+  generationVersion: 2.558.2
+  releaseVersion: 0.2.0
+  configChecksum: ff444469fd587a87e58239dcb9458b75
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.34.0
+    core: 3.35.1
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
@@ -21,8 +21,8 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.1
     nameOverrides: 2.81.3
-    pagination: 0.2.2
-    sdkHooks: 0.1.0
+    pagination: 0.3.0
+    sdkHooks: 1.0.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
@@ -45,6 +45,7 @@ generatedFiles:
   - docs/models/operations/Verse.md
   - docs/sdks/esv/README.md
   - docs/sdks/passages/README.md
+  - gradle.properties
   - gradle/wrapper/gradle-wrapper.jar
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
@@ -88,6 +89,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/FormMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/HTTPClient.java
   - src/main/java/io/github/walker_tx/esv/utils/HTTPRequest.java
+  - src/main/java/io/github/walker_tx/esv/utils/HasSecurity.java
   - src/main/java/io/github/walker_tx/esv/utils/HeaderMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/Helpers.java
   - src/main/java/io/github/walker_tx/esv/utils/Hook.java

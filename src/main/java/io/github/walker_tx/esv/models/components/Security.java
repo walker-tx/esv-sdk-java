@@ -6,13 +6,14 @@
 package io.github.walker_tx.esv.models.components;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.walker_tx.esv.utils.HasSecurity;
 import io.github.walker_tx.esv.utils.SpeakeasyMetadata;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 
-public class Security {
+public class Security implements HasSecurity {
 
     @SpeakeasyMetadata("security:scheme=true,type=apiKey,subtype=header,name=Authorization")
     private String apiKey;
