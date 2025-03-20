@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.521.0
-  generationVersion: 2.558.2
-  releaseVersion: 0.2.0
-  configChecksum: ff444469fd587a87e58239dcb9458b75
+  speakeasyVersion: 1.521.1
+  generationVersion: 2.558.5
+  releaseVersion: 0.2.1
+  configChecksum: 7e120de457005e6e9ce46829294860bd
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.35.1
+    core: 3.35.2
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
@@ -21,7 +21,7 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.1
     nameOverrides: 2.81.3
-    pagination: 0.3.0
+    pagination: 0.3.1
     sdkHooks: 1.0.0
 generatedFiles:
   - .gitattributes
