@@ -97,9 +97,9 @@ public class Application {
                 .pageSize(20L)
                 .page(1L)
                 .callAsStream()
-            .forEach(item -> {
-               // handle item
-            });
+                .forEach(item -> {
+                   // handle item again
+                });
 
     }
 }

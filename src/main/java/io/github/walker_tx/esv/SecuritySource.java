@@ -4,24 +4,24 @@
 
 package io.github.walker_tx.esv;
 
-import io.github.walker_tx.esv.models.components.Security;
+import io.github.walker_tx.esv.utils.HasSecurity;
 
 public interface SecuritySource {
 
-    Security getSecurity();
+    HasSecurity getSecurity();
     
-    public static SecuritySource of(Security security) {
+    public static SecuritySource of(HasSecurity security) {
         return new DefaultSecuritySource(security);
     }
 
     public static class DefaultSecuritySource implements SecuritySource {
-        private Security security;
+        private HasSecurity security;
 
-        public DefaultSecuritySource(Security security) {
+        public DefaultSecuritySource(HasSecurity security) {
             this.security = security;
         }
 
-        public Security getSecurity() {
+        public HasSecurity getSecurity() {
             return security;
         }
     }

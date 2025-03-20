@@ -256,7 +256,7 @@ public class SearchPassagesResponse implements Response {
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @Deprecated not part of the public API, may be removed without notice
+         * @deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<SearchPassagesResponse>> next) {
