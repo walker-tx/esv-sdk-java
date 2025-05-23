@@ -3,25 +3,25 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.521.1
-  generationVersion: 2.558.5
-  releaseVersion: 0.2.1
-  configChecksum: 7e120de457005e6e9ce46829294860bd
+  speakeasyVersion: 1.550.0
+  generationVersion: 2.610.0
+  releaseVersion: 0.3.0
+  configChecksum: d5e2aacd2f879a09211c632f3354caf8
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.35.2
+    core: 3.37.3
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
-    globalServerURLs: 2.82.1
+    globalServerURLs: 2.82.2
     nameOverrides: 2.81.3
-    pagination: 0.3.1
+    pagination: 0.3.3
     sdkHooks: 1.0.0
 generatedFiles:
   - .gitattributes
@@ -81,6 +81,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/BackoffStrategy.java
   - src/main/java/io/github/walker_tx/esv/utils/BigDecimalString.java
   - src/main/java/io/github/walker_tx/esv/utils/BigIntegerString.java
+  - src/main/java/io/github/walker_tx/esv/utils/Constants.java
   - src/main/java/io/github/walker_tx/esv/utils/Deserializers.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStream.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStreamLineReader.java
@@ -146,9 +147,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     CompactNotation:
       parameters:
         query:
@@ -170,9 +172,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     ChapterRange:
       parameters:
         query:
@@ -194,9 +197,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     NumericalEncoding:
       parameters:
         query:
@@ -218,9 +222,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     DigitalRange:
       parameters:
         query:
@@ -242,9 +247,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     MultiReference:
       parameters:
         query:
@@ -266,9 +272,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     StructuredDigital:
       parameters:
         query:
@@ -290,9 +297,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     "":
       parameters:
         query:
@@ -314,9 +322,10 @@ examples:
           wrapping-div: true
           div-classes: "esv"
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
   searchPassages:
     speakeasy-default-search-passages:
       parameters:
@@ -418,9 +427,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     CompactNotation:
       parameters:
         query:
@@ -445,9 +455,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     ChapterRange:
       parameters:
         query:
@@ -472,9 +483,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     NumericalEncoding:
       parameters:
         query:
@@ -499,9 +511,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     DigitalRange:
       parameters:
         query:
@@ -526,9 +539,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     MultiReference:
       parameters:
         query:
@@ -553,9 +567,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     StructuredDigital:
       parameters:
         query:
@@ -580,9 +595,10 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
     "":
       parameters:
         query:
@@ -607,8 +623,9 @@ examples:
           indent-psalm-doxology: 30
           line-length: 0
       responses:
+        "200":
+          application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
-        "200": {}
-examplesVersion: 1.0.0
+examplesVersion: 1.0.2
 generatedTests: {}
