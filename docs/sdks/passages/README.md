@@ -98,7 +98,7 @@ public class Application {
                 .page(1L)
                 .callAsStream()
                 .forEach(item -> {
-                   // handle item again
+                   // handle item
                 });
 
     }

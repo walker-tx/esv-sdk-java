@@ -3,8 +3,8 @@
  */
 package io.github.walker_tx.esv.utils;
 
-/**
- * Implemented by classes that have security annotations on fields.
- **/
-public interface HasSecurity {
+public final class Constants {
+
+    public static final boolean HAS_CLIENT_CREDENTIALS_BASIC = false;
+
 }
