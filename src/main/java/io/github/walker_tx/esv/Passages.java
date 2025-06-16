@@ -53,7 +53,6 @@ public class Passages implements
         this.sdkConfiguration = sdkConfiguration;
     }
 
-
     /**
      * Get Bible passage HTML
      * 
@@ -80,7 +79,7 @@ public class Passages implements
      */
     public GetPassageHtmlResponse getHtml(
             GetPassageHtmlRequest request) throws Exception {
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/passage/html/");
@@ -95,14 +94,15 @@ public class Passages implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
                   new BeforeRequestContextImpl(
+                      this.sdkConfiguration,
                       _baseUrl,
                       "getPassageHtml", 
                       Optional.of(List.of()), 
@@ -115,6 +115,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageHtml",
                             Optional.of(List.of()),
@@ -125,6 +126,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
                         new AfterSuccessContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageHtml",
                             Optional.of(List.of()), 
@@ -135,6 +137,7 @@ public class Passages implements
             _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageHtml",
                             Optional.of(List.of()),
@@ -208,7 +211,6 @@ public class Passages implements
     }
 
 
-
     /**
      * Search Bible passages
      * 
@@ -247,7 +249,7 @@ public class Passages implements
                 .page(page)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/passage/search/");
@@ -262,14 +264,15 @@ public class Passages implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
                   new BeforeRequestContextImpl(
+                      this.sdkConfiguration,
                       _baseUrl,
                       "searchPassages", 
                       Optional.of(List.of()), 
@@ -282,6 +285,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "searchPassages",
                             Optional.of(List.of()),
@@ -292,6 +296,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
                         new AfterSuccessContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "searchPassages",
                             Optional.of(List.of()), 
@@ -302,6 +307,7 @@ public class Passages implements
             _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "searchPassages",
                             Optional.of(List.of()),
@@ -398,7 +404,6 @@ public class Passages implements
     }
 
 
-
     /**
      * Get Bible passage audio
      * 
@@ -431,7 +436,7 @@ public class Passages implements
                 .query(query)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/passage/audio/");
@@ -446,14 +451,15 @@ public class Passages implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
                   new BeforeRequestContextImpl(
+                      this.sdkConfiguration,
                       _baseUrl,
                       "getPassageAudio", 
                       Optional.of(List.of()), 
@@ -466,6 +472,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageAudio",
                             Optional.of(List.of()),
@@ -476,6 +483,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
                         new AfterSuccessContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageAudio",
                             Optional.of(List.of()), 
@@ -486,6 +494,7 @@ public class Passages implements
             _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageAudio",
                             Optional.of(List.of()),
@@ -558,7 +567,6 @@ public class Passages implements
     }
 
 
-
     /**
      * Get Bible passage text
      * 
@@ -585,7 +593,7 @@ public class Passages implements
      */
     public GetPassageTextResponse getText(
             GetPassageTextRequest request) throws Exception {
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/passage/text/");
@@ -600,14 +608,15 @@ public class Passages implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
                   new BeforeRequestContextImpl(
+                      this.sdkConfiguration,
                       _baseUrl,
                       "getPassageText", 
                       Optional.of(List.of()), 
@@ -620,6 +629,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageText",
                             Optional.of(List.of()),
@@ -630,6 +640,7 @@ public class Passages implements
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
                         new AfterSuccessContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageText",
                             Optional.of(List.of()), 
@@ -640,6 +651,7 @@ public class Passages implements
             _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
+                            this.sdkConfiguration,
                             _baseUrl,
                             "getPassageText",
                             Optional.of(List.of()),

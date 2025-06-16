@@ -4,8 +4,8 @@
 package io.github.walker_tx.esv;
 
 import io.github.walker_tx.esv.utils.HTTPClient;
+import io.github.walker_tx.esv.utils.Hook.SdkInitData;
 import io.github.walker_tx.esv.utils.RetryConfig;
-import io.github.walker_tx.esv.utils.SpeakeasyHTTPClient;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.String;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class Esv {
         return passages;
     }
 
-    private final SDKConfiguration sdkConfiguration;
+    private SDKConfiguration sdkConfiguration;
 
     /**
      * The Builder class allows the configuration of a new instance of the SDK.
@@ -46,6 +46,9 @@ public class Esv {
     public static class Builder {
 
         private final SDKConfiguration sdkConfiguration = new SDKConfiguration();
+        private String serverUrl;
+        private String server;
+        
 
         private Builder() {
         }
@@ -57,7 +60,7 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder client(HTTPClient client) {
-            this.sdkConfiguration.defaultClient = client;
+            this.sdkConfiguration.setClient(client);
             return this;
         }
         /**
@@ -67,9 +70,9 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder apiKey(String apiKey) {
-            this.sdkConfiguration.securitySource = SecuritySource.of(io.github.walker_tx.esv.models.components.Security.builder()
+            this.sdkConfiguration.setSecuritySource(SecuritySource.of(io.github.walker_tx.esv.models.components.Security.builder()
               .apiKey(apiKey)
-              .build());
+              .build()));
             return this;
         }
 
@@ -80,7 +83,8 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder securitySource(SecuritySource securitySource) {
-            this.sdkConfiguration.securitySource = securitySource;
+            Utils.checkNotNull(securitySource, "securitySource");
+            this.sdkConfiguration.setSecuritySource(securitySource);
             return this;
         }
         
@@ -91,7 +95,7 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl) {
-            this.sdkConfiguration.serverUrl = serverUrl;
+            this.serverUrl = serverUrl;
             return this;
         }
 
@@ -103,7 +107,7 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
+            this.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         
@@ -114,8 +118,8 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder serverIndex(int serverIdx) {
-            this.sdkConfiguration.serverIdx = serverIdx;
-            this.sdkConfiguration.serverUrl = SERVERS[serverIdx];
+            this.sdkConfiguration.setServerIdx(serverIdx);
+            this.serverUrl= SERVERS[serverIdx];
             return this;
         }
         
@@ -126,7 +130,7 @@ public class Esv {
          * @return The builder instance.
          */
         public Builder retryConfig(RetryConfig retryConfig) {
-            this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
+            this.sdkConfiguration.setRetryConfig(Optional.of(retryConfig));
             return this;
         }
         // Visible for testing, may be accessed via reflection in tests
@@ -147,19 +151,11 @@ public class Esv {
          * @return The SDK instance.
          */
         public Esv build() {
-            if (sdkConfiguration.defaultClient == null) {
-                sdkConfiguration.defaultClient = new SpeakeasyHTTPClient();
+            if (serverUrl == null || serverUrl.isBlank()) {
+                serverUrl = SERVERS[0];
+                sdkConfiguration.setServerIdx(0);
             }
-	        if (sdkConfiguration.securitySource == null) {
-	    	    sdkConfiguration.securitySource = SecuritySource.of(null);
-	        }
-            if (sdkConfiguration.serverUrl == null || sdkConfiguration.serverUrl.isBlank()) {
-                sdkConfiguration.serverUrl = SERVERS[0];
-                sdkConfiguration.serverIdx = 0;
-            }
-            if (sdkConfiguration.serverUrl.endsWith("/")) {
-                sdkConfiguration.serverUrl = sdkConfiguration.serverUrl.substring(0, sdkConfiguration.serverUrl.length() - 1);
-            }
+            sdkConfiguration.setServerUrl(serverUrl);
             return new Esv(sdkConfiguration);
         }
     }
@@ -175,7 +171,11 @@ public class Esv {
 
     private Esv(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
-        this.passages = new Passages(sdkConfiguration);
         this.sdkConfiguration.initialize();
+        this.passages = new Passages(sdkConfiguration);
+        
+        SdkInitData data = this.sdkConfiguration.hooks().sdkInit(new SdkInitData(this.sdkConfiguration.resolvedServerUrl(), this.sdkConfiguration.client()));
+        this.sdkConfiguration.setServerUrl(data.baseUrl());
+        this.sdkConfiguration.setClient(data.client());
     }
 }

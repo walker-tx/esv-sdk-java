@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.550.0
-  generationVersion: 2.610.0
-  releaseVersion: 0.3.0
-  configChecksum: d5e2aacd2f879a09211c632f3354caf8
+  speakeasyVersion: 1.563.3
+  generationVersion: 2.630.5
+  releaseVersion: 0.4.0
+  configChecksum: fe933a5a58a220571fb7b2f892b8a12b
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.37.3
+    core: 3.39.0
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
@@ -22,7 +22,7 @@ features:
     globalServerURLs: 2.82.2
     nameOverrides: 2.81.3
     pagination: 0.3.3
-    sdkHooks: 1.0.0
+    sdkHooks: 1.1.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
@@ -326,6 +326,31 @@ examples:
           application/json: {}
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
+    speakeasy-default-get-passage-html:
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
   searchPassages:
     speakeasy-default-search-passages:
       parameters:
@@ -600,6 +625,34 @@ examples:
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
     "":
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    speakeasy-default-get-passage-text:
       parameters:
         query:
           q: "<value>"
