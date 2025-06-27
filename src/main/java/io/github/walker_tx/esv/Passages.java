@@ -3,14 +3,8 @@
  */
 package io.github.walker_tx.esv;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.Option;
-import com.jayway.jsonpath.ReadContext;
-import io.github.walker_tx.esv.models.components.PassageResponse;
-import io.github.walker_tx.esv.models.errors.APIException;
-import io.github.walker_tx.esv.models.errors.Error;
+import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+
 import io.github.walker_tx.esv.models.operations.GetPassageAudioRequest;
 import io.github.walker_tx.esv.models.operations.GetPassageAudioRequestBuilder;
 import io.github.walker_tx.esv.models.operations.GetPassageAudioResponse;
@@ -20,39 +14,25 @@ import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import io.github.walker_tx.esv.models.operations.GetPassageTextRequest;
 import io.github.walker_tx.esv.models.operations.GetPassageTextRequestBuilder;
 import io.github.walker_tx.esv.models.operations.GetPassageTextResponse;
-import io.github.walker_tx.esv.models.operations.SDKMethodInterfaces.*;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequest;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequestBuilder;
 import io.github.walker_tx.esv.models.operations.SearchPassagesResponse;
-import io.github.walker_tx.esv.models.operations.SearchPassagesResponseBody;
-import io.github.walker_tx.esv.utils.HTTPClient;
-import io.github.walker_tx.esv.utils.HTTPRequest;
-import io.github.walker_tx.esv.utils.Hook.AfterErrorContextImpl;
-import io.github.walker_tx.esv.utils.Hook.AfterSuccessContextImpl;
-import io.github.walker_tx.esv.utils.Hook.BeforeRequestContextImpl;
-import io.github.walker_tx.esv.utils.Utils;
-import java.io.InputStream;
+import io.github.walker_tx.esv.operations.GetPassageAudioOperation;
+import io.github.walker_tx.esv.operations.GetPassageHtmlOperation;
+import io.github.walker_tx.esv.operations.GetPassageTextOperation;
+import io.github.walker_tx.esv.operations.SearchPassagesOperation;
 import java.lang.Exception;
 import java.lang.String;
-import java.lang.SuppressWarnings;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
-public class Passages implements
-            MethodCallGetPassageHtml,
-            MethodCallSearchPassages,
-            MethodCallGetPassageAudio,
-            MethodCallGetPassageText {
 
+public class Passages {
     private final SDKConfiguration sdkConfiguration;
 
     Passages(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
 
     /**
      * Get Bible passage HTML
@@ -64,7 +44,7 @@ public class Passages implements
      * @return The call builder
      */
     public GetPassageHtmlRequestBuilder getHtml() {
-        return new GetPassageHtmlRequestBuilder(this);
+        return new GetPassageHtmlRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -74,139 +54,16 @@ public class Passages implements
      * 
      * <p>https://api.esv.org/docs/passage-html/ - Esv.org API Docs for `/v3/passages/html`
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public GetPassageHtmlResponse getHtml(
             GetPassageHtmlRequest request) throws Exception {
-        String _baseUrl = this.sdkConfiguration.serverUrl;
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/passage/html/");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                GetPassageHtmlRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      _baseUrl,
-                      "getPassageHtml", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageHtml",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            _baseUrl,
-                            "getPassageHtml",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageHtml",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
-        }
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetPassageHtmlResponse.Builder _resBuilder = 
-            GetPassageHtmlResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetPassageHtmlResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                PassageResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<PassageResponse>() {});
-                _res.withPassageResponse(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
+              = new GetPassageHtmlOperation( sdkConfiguration);
+        return operation.handleResponse(operation.doRequest(request));
     }
-
 
 
     /**
@@ -219,7 +76,7 @@ public class Passages implements
      * @return The call builder
      */
     public SearchPassagesRequestBuilder search() {
-        return new SearchPassagesRequestBuilder(this);
+        return new SearchPassagesRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -246,157 +103,10 @@ public class Passages implements
                 .pageSize(pageSize)
                 .page(page)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl;
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/passage/search/");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                SearchPassagesRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      _baseUrl,
-                      "searchPassages", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "searchPassages",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            _baseUrl,
-                            "searchPassages",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "searchPassages",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
-        }
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
-        SearchPassagesResponse.Builder _resBuilder = 
-            SearchPassagesResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    Configuration _config = Configuration.defaultConfiguration()
-                            .addOptions(Option.SUPPRESS_EXCEPTIONS);
-                    ReadContext _body = JsonPath.using(_config).parse(_stringBody);
-                    long _newPage = request.page() + 1;
-                    long _numPages = _body.read("$.total_pages", Long.class);
-
-                    if (_newPage > _numPages) {
-                        return Optional.empty();
-                    }; 
-                    SearchPassagesRequestBuilder _nextRequest = search()
-                            .query(query)
-                            .pageSize(pageSize)
-                            .page(_newPage);
-                    return Optional.of(_nextRequest.call());
-                });
-
-        SearchPassagesResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                SearchPassagesResponseBody _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<SearchPassagesResponseBody>() {});
-                _res.withObject(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    _fullResponse);
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    _fullResponse);
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+        RequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
+              = new SearchPassagesOperation( sdkConfiguration);
+        return operation.handleResponse(operation.doRequest(request));
     }
-
 
 
     /**
@@ -409,7 +119,7 @@ public class Passages implements
      * @return The call builder
      */
     public GetPassageAudioRequestBuilder getAudio() {
-        return new GetPassageAudioRequestBuilder(this);
+        return new GetPassageAudioRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -430,133 +140,10 @@ public class Passages implements
                 .builder()
                 .query(query)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl;
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/passage/audio/");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "audio/mpeg")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                GetPassageAudioRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      _baseUrl,
-                      "getPassageAudio", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageAudio",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            _baseUrl,
-                            "getPassageAudio",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageAudio",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
-        }
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetPassageAudioResponse.Builder _resBuilder = 
-            GetPassageAudioResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200") && Utils.contentTypeMatches(_contentType, "audio/mpeg")) {
-            _resBuilder.responseStream(_httpRes.body());
-        }
-
-        GetPassageAudioResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "audio/mpeg")) {
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
+              = new GetPassageAudioOperation( sdkConfiguration);
+        return operation.handleResponse(operation.doRequest(request));
     }
-
 
 
     /**
@@ -569,7 +156,7 @@ public class Passages implements
      * @return The call builder
      */
     public GetPassageTextRequestBuilder getText() {
-        return new GetPassageTextRequestBuilder(this);
+        return new GetPassageTextRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -579,137 +166,15 @@ public class Passages implements
      * 
      * <p>https://api.esv.org/docs/passage-text/ - Esv.org API Docs for `/v3/passages/text`
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public GetPassageTextResponse getText(
             GetPassageTextRequest request) throws Exception {
-        String _baseUrl = this.sdkConfiguration.serverUrl;
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/passage/text/");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                GetPassageTextRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      _baseUrl,
-                      "getPassageText", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageText",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            _baseUrl,
-                            "getPassageText",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            _baseUrl,
-                            "getPassageText",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
-        }
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetPassageTextResponse.Builder _resBuilder = 
-            GetPassageTextResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetPassageTextResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                PassageResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<PassageResponse>() {});
-                _res.withPassageResponse(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
+              = new GetPassageTextOperation( sdkConfiguration);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 }

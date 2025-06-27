@@ -3,6 +3,10 @@
  */
 package io.github.walker_tx.esv.models.operations;
 
+import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+
+import io.github.walker_tx.esv.SDKConfiguration;
+import io.github.walker_tx.esv.operations.GetPassageAudioOperation;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 import java.lang.String;
@@ -10,10 +14,10 @@ import java.lang.String;
 public class GetPassageAudioRequestBuilder {
 
     private String query;
-    private final SDKMethodInterfaces.MethodCallGetPassageAudio sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetPassageAudioRequestBuilder(SDKMethodInterfaces.MethodCallGetPassageAudio sdk) {
-        this.sdk = sdk;
+    public GetPassageAudioRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetPassageAudioRequestBuilder query(String query) {
@@ -22,9 +26,20 @@ public class GetPassageAudioRequestBuilder {
         return this;
     }
 
-    public GetPassageAudioResponse call() throws Exception {
 
-        return sdk.getAudio(
-            query);
+    private GetPassageAudioRequest buildRequest() {
+
+        GetPassageAudioRequest request = new GetPassageAudioRequest(query);
+
+        return request;
+    }
+
+    public GetPassageAudioResponse call() throws Exception {
+        
+        RequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
+              = new GetPassageAudioOperation( sdkConfiguration);
+        GetPassageAudioRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

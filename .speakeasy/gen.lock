@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.550.0
-  generationVersion: 2.610.0
-  releaseVersion: 0.3.0
-  configChecksum: d5e2aacd2f879a09211c632f3354caf8
+  speakeasyVersion: 1.571.0
+  generationVersion: 2.640.1
+  releaseVersion: 0.3.1
+  configChecksum: f644b89a9aa5139a33a0539da9e0e196
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.37.3
+    core: 3.40.0
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
@@ -21,8 +21,8 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
     nameOverrides: 2.81.3
-    pagination: 0.3.3
-    sdkHooks: 1.0.0
+    pagination: 1.0.0
+    sdkHooks: 1.1.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
@@ -72,22 +72,29 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/models/operations/GetPassageTextResponse.java
   - src/main/java/io/github/walker_tx/esv/models/operations/IndentUsing.java
   - src/main/java/io/github/walker_tx/esv/models/operations/Result.java
-  - src/main/java/io/github/walker_tx/esv/models/operations/SDKMethodInterfaces.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesRequest.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesRequestBuilder.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponse.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponseBody.java
   - src/main/java/io/github/walker_tx/esv/models/operations/Verse.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageAudioOperation.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageHtmlOperation.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageTextOperation.java
+  - src/main/java/io/github/walker_tx/esv/operations/Operations.java
+  - src/main/java/io/github/walker_tx/esv/operations/SearchPassagesOperation.java
   - src/main/java/io/github/walker_tx/esv/utils/BackoffStrategy.java
   - src/main/java/io/github/walker_tx/esv/utils/BigDecimalString.java
   - src/main/java/io/github/walker_tx/esv/utils/BigIntegerString.java
   - src/main/java/io/github/walker_tx/esv/utils/Constants.java
+  - src/main/java/io/github/walker_tx/esv/utils/CopiableInputStream.java
   - src/main/java/io/github/walker_tx/esv/utils/Deserializers.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStream.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStreamLineReader.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStreamMessage.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStreamReader.java
+  - src/main/java/io/github/walker_tx/esv/utils/Exceptions.java
   - src/main/java/io/github/walker_tx/esv/utils/FormMetadata.java
+  - src/main/java/io/github/walker_tx/esv/utils/Globals.java
   - src/main/java/io/github/walker_tx/esv/utils/HTTPClient.java
   - src/main/java/io/github/walker_tx/esv/utils/HTTPRequest.java
   - src/main/java/io/github/walker_tx/esv/utils/HasSecurity.java
@@ -124,6 +131,13 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/Types.java
   - src/main/java/io/github/walker_tx/esv/utils/Utf8UrlEncoder.java
   - src/main/java/io/github/walker_tx/esv/utils/Utils.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/CursorTracker.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/OffsetTracker.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/PageTracker.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/Paginator.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/ProgressTrackerStrategy.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/ResponseWithBody.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/ResultsPageTracker.java
 examples:
   getPassageHtml:
     StandardReference:
@@ -302,6 +316,31 @@ examples:
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
     "":
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          include-css-link: true
+          inline-styles: false
+          wrapping-div: true
+          div-classes: "esv"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    speakeasy-default-get-passage-html:
       parameters:
         query:
           q: "<value>"
@@ -600,6 +639,34 @@ examples:
         "400":
           application/json: {"code": "<value>", "message": "<value>"}
     "":
+      parameters:
+        query:
+          q: "<value>"
+          include-passage-references: true
+          include-verse-numbers: true
+          include-first-verse-numbers: true
+          include-footnotes: true
+          include-footnote-body: true
+          include-headings: true
+          include-short-copyright: false
+          include-copyright: false
+          include-passage-horizontal-lines: false
+          include-heading-horizontal-lines: false
+          horizontal-line-length: 55
+          include-selahs: true
+          indent-using: "space"
+          indent-paragraphs: 2
+          indent-poetry: 2
+          indent-poetry-lines: 4
+          indent-declares: 40
+          indent-psalm-doxology: 30
+          line-length: 0
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"code": "<value>", "message": "<value>"}
+    speakeasy-default-get-passage-text:
       parameters:
         query:
           q: "<value>"

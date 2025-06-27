@@ -20,7 +20,7 @@ public enum IndentUsing {
     @JsonValue
     private final String value;
 
-    private IndentUsing(String value) {
+    IndentUsing(String value) {
         this.value = value;
     }
     

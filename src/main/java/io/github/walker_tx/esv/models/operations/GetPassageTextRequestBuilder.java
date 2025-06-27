@@ -3,16 +3,20 @@
  */
 package io.github.walker_tx.esv.models.operations;
 
+import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+
+import io.github.walker_tx.esv.SDKConfiguration;
+import io.github.walker_tx.esv.operations.GetPassageTextOperation;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 
 public class GetPassageTextRequestBuilder {
 
     private GetPassageTextRequest request;
-    private final SDKMethodInterfaces.MethodCallGetPassageText sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetPassageTextRequestBuilder(SDKMethodInterfaces.MethodCallGetPassageText sdk) {
-        this.sdk = sdk;
+    public GetPassageTextRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetPassageTextRequestBuilder request(GetPassageTextRequest request) {
@@ -22,8 +26,10 @@ public class GetPassageTextRequestBuilder {
     }
 
     public GetPassageTextResponse call() throws Exception {
+        
+        RequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
+              = new GetPassageTextOperation( sdkConfiguration);
 
-        return sdk.getText(
-            request);
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

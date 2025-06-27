@@ -4,6 +4,7 @@ generation:
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
@@ -15,16 +16,22 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
 java:
-  version: 0.3.0
+  version: 0.3.1
   additionalDependencies: []
   additionalPlugins: []
   artifactID: esv
+  baseErrorName: EsvError
   clientServerStatusCodesAsErrors: true
   companyEmail: info@mycompany.com
   companyName: walker-tx
   companyURL: github.com/walker-tx
   defaultErrorName: APIException
+  enableCustomCodeRegions: false
   flattenGlobalSecurity: true
   githubURL: github.com/walker-tx/esv-sdk-java
   groupID: io.github.walker-tx
@@ -37,6 +44,7 @@ java:
       shared: models/components
       webhooks: models/webhooks
   inputModelSuffix: input
+  languageVersion: 11
   license:
     name: The MIT License (MIT)
     shortName: MIT

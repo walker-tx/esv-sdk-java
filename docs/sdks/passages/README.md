@@ -82,6 +82,7 @@ package hello.world;
 
 import io.github.walker_tx.esv.Esv;
 import io.github.walker_tx.esv.models.errors.Error;
+import io.github.walker_tx.esv.models.operations.SearchPassagesResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -97,8 +98,8 @@ public class Application {
                 .pageSize(20L)
                 .page(1L)
                 .callAsStream()
-                .forEach(item -> {
-                   // handle item
+                .forEach((SearchPassagesResponse item) -> {
+                   // handle page
                 });
 
     }

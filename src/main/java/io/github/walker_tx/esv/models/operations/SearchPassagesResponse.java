@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.walker_tx.esv.utils.Response;
 import io.github.walker_tx.esv.utils.Utils;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -17,7 +15,6 @@ import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 public class SearchPassagesResponse implements Response {
 
@@ -40,8 +37,6 @@ public class SearchPassagesResponse implements Response {
      * Successful response
      */
     private Optional<? extends SearchPassagesResponseBody> object;
-
-    private Callable<Optional<SearchPassagesResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public SearchPassagesResponse(
@@ -97,16 +92,6 @@ public class SearchPassagesResponse implements Response {
     @JsonIgnore
     public Optional<SearchPassagesResponseBody> object() {
         return (Optional<SearchPassagesResponseBody>) object;
-    }
-
-    public Optional<SearchPassagesResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private SearchPassagesResponse withNext(Callable<Optional<SearchPassagesResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -194,7 +179,6 @@ public class SearchPassagesResponse implements Response {
     }
     
     public final static class Builder {
-        private Callable<Optional<SearchPassagesResponse>> next;
  
         private String contentType;
  
@@ -252,26 +236,13 @@ public class SearchPassagesResponse implements Response {
             this.object = object;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<SearchPassagesResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public SearchPassagesResponse build() {
             return new SearchPassagesResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                object)
-                .withNext(next);
+                object);
         }
     }
 }

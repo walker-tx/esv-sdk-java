@@ -3,16 +3,20 @@
  */
 package io.github.walker_tx.esv.models.operations;
 
+import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+
+import io.github.walker_tx.esv.SDKConfiguration;
+import io.github.walker_tx.esv.operations.GetPassageHtmlOperation;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 
 public class GetPassageHtmlRequestBuilder {
 
     private GetPassageHtmlRequest request;
-    private final SDKMethodInterfaces.MethodCallGetPassageHtml sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetPassageHtmlRequestBuilder(SDKMethodInterfaces.MethodCallGetPassageHtml sdk) {
-        this.sdk = sdk;
+    public GetPassageHtmlRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetPassageHtmlRequestBuilder request(GetPassageHtmlRequest request) {
@@ -22,8 +26,10 @@ public class GetPassageHtmlRequestBuilder {
     }
 
     public GetPassageHtmlResponse call() throws Exception {
+        
+        RequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
+              = new GetPassageHtmlOperation( sdkConfiguration);
 
-        return sdk.getHtml(
-            request);
+        return operation.handleResponse(operation.doRequest(request));
     }
 }
