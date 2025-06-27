@@ -2,7 +2,7 @@ speakeasyVersion: 1.571.0
 sources:
     Esv-OAS:
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:0e2969b041ffe97a7b8a2395adf4521526ce380cc0febd4bd3eff2959493534a
+        sourceRevisionDigest: sha256:e5645cf60a01373dc4537c77baba381073114b39bf3fe9451ca5b7bd0fad541d
         sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     esv:
         source: Esv-OAS
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:0e2969b041ffe97a7b8a2395adf4521526ce380cc0febd4bd3eff2959493534a
+        sourceRevisionDigest: sha256:e5645cf60a01373dc4537c77baba381073114b39bf3fe9451ca5b7bd0fad541d
         sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
         codeSamplesNamespace: esv-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:2f7f3038b452d501f171c566743d6c9793fa69e1f9b55047849f45181635b2c4
+        codeSamplesRevisionDigest: sha256:c4dbdb391b100badf0d51abae7051ffe35833a04a3854e5b9a4bfdc41e7883d7
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

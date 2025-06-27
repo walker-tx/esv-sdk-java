@@ -26,7 +26,6 @@ features:
 generatedFiles:
   - .gitattributes
   - USAGE.md
-  - build.gradle
   - docs/models/components/PassageMeta.md
   - docs/models/components/PassageResponse.md
   - docs/models/components/Security.md
@@ -50,7 +49,6 @@ generatedFiles:
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
-  - settings.gradle
   - src/main/java/io/github/walker_tx/esv/Esv.java
   - src/main/java/io/github/walker_tx/esv/Passages.java
   - src/main/java/io/github/walker_tx/esv/SDKConfiguration.java
