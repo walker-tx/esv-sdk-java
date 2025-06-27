@@ -28,7 +28,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     withSourcesJar()
     withJavadocJar()
@@ -64,6 +64,10 @@ javadoc {
 tasks.withType(Javadoc) {
   failOnError false
   options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
 }
 
 sourcesJar {
