@@ -1,0 +1,554 @@
+openapi: 3.1.0
+info:
+  title: ESV.org API
+  summary: A convenient way to fetch content from ESV.org.
+  description: "The ESV API provides access to the ESV text, with a customizable presentation in  multiple formats. "
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+externalDocs:
+  url: https://api.esv.org/
+  description: ESV API Website
+servers:
+  - url: "https://api.esv.org/v3/"
+    description: Production server
+security:
+  - apiKey: []
+tags:
+  - name: Passages
+paths:
+  /passage/html/:
+    get:
+      summary: Get Bible passage HTML
+      description: Returns Bible passage text with HTML formatting
+      externalDocs:
+        url: https://api.esv.org/docs/passage-html/
+        description: Esv.org API Docs for `/v3/passages/html`
+      operationId: getPassageHtml
+      tags: [Passages]
+      x-speakeasy-name-override: getHtml
+      parameters:
+        - $ref: "#/components/parameters/PassageSearchQuery"
+        - $ref: "#/components/parameters/IncludePassageReferences"
+        - $ref: "#/components/parameters/IncludeVerseNumbers"
+        - $ref: "#/components/parameters/IncludeFirstVerseNumbers"
+        - $ref: "#/components/parameters/IncludeFootnotes"
+        - $ref: "#/components/parameters/IncludeFootnoteBody"
+        - $ref: "#/components/parameters/IncludeHeadings"
+        - $ref: "#/components/parameters/IncludeShortCopyright"
+        - $ref: "#/components/parameters/IncludeCopyright"
+        - $ref: "#/components/parameters/IncludePassageHorizontalLines"
+        - $ref: "#/components/parameters/IncludeHeadingHorizontalLines"
+        - $ref: "#/components/parameters/HorizontalLineLength"
+        - $ref: "#/components/parameters/IncludeSelahs"
+        - name: include-css-link
+          in: query
+          description: Include a link to the ESV API CSS file
+          schema:
+            type: boolean
+            default: true
+        - name: inline-styles
+          in: query
+          description: Include inline styles on HTML elements
+          schema:
+            type: boolean
+            default: false
+        - name: wrapping-div
+          in: query
+          description: Wrap the HTML output in a div with class="esv"
+          schema:
+            type: boolean
+            default: true
+        - name: div-classes
+          in: query
+          description: Classes to add to the wrapping div
+          schema:
+            type: string
+            default: "esv"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PassageResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /passage/search/:
+    get:
+      summary: Search Bible passages
+      description: Returns search results for Bible passages based on the provided query
+      externalDocs:
+        url: https://api.esv.org/docs/passage-search/
+        description: Esv.org API Docs for `/v3/passage/search`
+      operationId: searchPassages
+      tags: [Passages]
+      x-speakeasy-name-override: search
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs:
+          - name: page
+            in: parameters
+            type: page
+        outputs:
+          numPages: $.total_pages
+      parameters:
+        - name: q
+          x-speakeasy-name-override: query
+          in: query
+          required: true
+          description: The text to search for
+          schema:
+            type: string
+        - name: page-size
+          in: query
+          description: Number of results to return per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: true
+        - name: page
+          in: query
+          description: Page number to return
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: true
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: Current page number
+                  total_pages:
+                    type: integer
+                    description: Total number of pages
+                  total_results:
+                    type: integer
+                    description: Total number of results
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        reference:
+                          type: string
+                          description: The passage reference
+                        content:
+                          type: string
+                          description: The matching passage content
+                        verses:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              verse:
+                                type: string
+                                description: Verse reference
+                              text:
+                                type: string
+                                description: Verse text
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /passage/audio/:
+    get:
+      summary: Get Bible passage audio
+      description: Returns audio file for Bible passages based on the provided query
+      externalDocs:
+        url: https://api.esv.org/docs/passage-audio/
+        description: Esv.org API Docs for `/v3/passage/audio`
+      operationId: getPassageAudio
+      tags: [Passages]
+      x-speakeasy-name-override: getAudio
+      parameters:
+        - $ref: "#/components/parameters/PassageSearchQuery"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /passage/text/:
+    get:
+      summary: Get Bible passage text
+      description: Returns Bible passage text based on the provided query parameters
+      externalDocs:
+        url: https://api.esv.org/docs/passage-text/
+        description: Esv.org API Docs for `/v3/passages/text`
+      operationId: getPassageText
+      tags: [Passages]
+      x-speakeasy-name-override: getText
+      parameters:
+        - $ref: "#/components/parameters/PassageSearchQuery"
+        - $ref: "#/components/parameters/IncludePassageReferences"
+        - $ref: "#/components/parameters/IncludeVerseNumbers"
+        - $ref: "#/components/parameters/IncludeFirstVerseNumbers"
+        - $ref: "#/components/parameters/IncludeFootnotes"
+        - $ref: "#/components/parameters/IncludeFootnoteBody"
+        - $ref: "#/components/parameters/IncludeHeadings"
+        - $ref: "#/components/parameters/IncludeShortCopyright"
+        - $ref: "#/components/parameters/IncludeCopyright"
+        - $ref: "#/components/parameters/IncludePassageHorizontalLines"
+        - $ref: "#/components/parameters/IncludeHeadingHorizontalLines"
+        - $ref: "#/components/parameters/HorizontalLineLength"
+        - $ref: "#/components/parameters/IncludeSelahs"
+        - name: indent-using
+          in: query
+          description: Character to use for indentation
+          schema:
+            type: string
+            default: space
+            enum: [space, tab]
+        - name: indent-paragraphs
+          in: query
+          description: Number of indentation characters for paragraphs
+          schema:
+            type: integer
+            default: 2
+        - name: indent-poetry
+          in: query
+          description: Number of indentation characters for poetry
+          schema:
+            type: integer
+            default: 2
+        - name: indent-poetry-lines
+          in: query
+          description: Number of indentation characters for poetry lines
+          schema:
+            type: integer
+            default: 4
+        - name: indent-declares
+          in: query
+          description: Number of indentation characters for declares
+          schema:
+            type: integer
+            default: 40
+        - name: indent-psalm-doxology
+          in: query
+          description: Number of indentation characters for Psalm doxology
+          schema:
+            type: integer
+            default: 30
+        - name: line-length
+          in: query
+          description: Maximum line length
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PassageResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: Authorization
+      description: >-
+        The application key used to make a request. Do _not_ include the `Token` prefix. For more information on application keys and API authorization, visit the [ESV.org API docs].
+
+        ![ESV.org API docs]: https://api.esv.org/docs/
+      in: header
+  parameters:
+    IncludePassageReferences:
+      name: include-passage-references
+      in: query
+      description: Include passage references before passages
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeVerseNumbers:
+      name: include-verse-numbers
+      in: query
+      description: Include verse numbers
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeFirstVerseNumbers:
+      name: include-first-verse-numbers
+      in: query
+      description: Include the verse number for the first verse of a chapter
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeFootnotes:
+      name: include-footnotes
+      in: query
+      description: Include callouts to footnotes in the text.
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeFootnoteBody:
+      name: include-footnote-body
+      in: query
+      description: Include footnote body content
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeHeadings:
+      name: include-headings
+      in: query
+      description: Include passage headings
+      schema:
+        type: boolean
+        default: true
+      example: true
+    IncludeShortCopyright:
+      name: include-short-copyright
+      in: query
+      description: Include a short copyright notice
+      schema:
+        type: boolean
+        default: false
+      example: false
+    IncludeCopyright:
+      name: include-copyright
+      in: query
+      description: Include the full copyright notice
+      schema:
+        type: boolean
+        default: false
+      example: false
+    IncludePassageHorizontalLines:
+      name: include-passage-horizontal-lines
+      in: query
+      description: Include horizontal lines between passages
+      schema:
+        type: boolean
+        default: false
+      example: false
+    IncludeHeadingHorizontalLines:
+      name: include-heading-horizontal-lines
+      in: query
+      description: Include horizontal lines under headings
+      schema:
+        type: boolean
+        default: false
+      example: false
+    HorizontalLineLength:
+      name: horizontal-line-length
+      in: query
+      description: Length of horizontal lines
+      schema:
+        type: integer
+        default: 55
+      example: 55
+    IncludeSelahs:
+      name: include-selahs
+      in: query
+      description: Include "Selah" in passage text
+      schema:
+        type: boolean
+        default: true
+      example: true
+    PassageSearchQuery:
+      name: q
+      in: query
+      x-speakeasy-name-override: query
+      required: true
+      description: Bible passage reference (e.g., "John 3:16" or "43011016")
+      schema:
+        type: string
+      examples:
+        StandardReference:
+          $ref: "#/components/examples/StandardReference"
+        CompactNotation:
+          $ref: "#/components/examples/CompactNotation"
+        ChapterRange:
+          $ref: "#/components/examples/ChapterRange"
+        NumericalEncoding:
+          $ref: "#/components/examples/NumericalEncoding"
+        DigitalRange:
+          $ref: "#/components/examples/DigitalRange"
+        MultiReference:
+          $ref: "#/components/examples/MultiReference"
+        StructuredDigital:
+          $ref: "#/components/examples/StructuredDigital"
+  schemas:
+    PassageResponse:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The passage reference that was requested
+        canonical:
+          type: string
+          description: The canonical version of the passage reference
+        parsed:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+          description: Array of parsed passage references
+        passage_meta:
+          type: array
+          items:
+            $ref: "#/components/schemas/PassageMeta"
+        passages:
+          type: array
+          items:
+            type: string
+          description: Array of formatted passage text
+    PassageMeta:
+      type: object
+      properties:
+        canonical:
+          type: string
+        chapter_start:
+          type: array
+          items:
+            type: integer
+        chapter_end:
+          type: array
+          items:
+            type: integer
+        prev_verse:
+          type: integer
+        next_verse:
+          type: integer
+        prev_chapter:
+          type: array
+          items:
+            type: integer
+        next_chapter:
+          type: array
+          items:
+            type: integer
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - username
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          minLength: 3
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    UserInput:
+      type: object
+      required:
+        - email
+        - username
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          minLength: 3
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  examples:
+    StandardReference:
+      summary: "Standard Bible Verse Notation"
+      value: "John 1:1"
+    CompactNotation:
+      summary: "Compact Digital-Friendly Notation"
+      value: "jn11.35"
+    ChapterRange:
+      summary: "Chapter Range Notation"
+      value: "Genesis 1-3"
+    NumericalEncoding:
+      summary: "Numerical Encoding of a Verse"
+      value: "43011035"
+    DigitalRange:
+      summary: "Structured Digital Range Notation"
+      value: "01001001-01011032"
+    MultiReference:
+      summary: "Multiple Verses Notation"
+      value: "John1.1;Genesis1.1"
+    StructuredDigital:
+      summary: "Structured Digital Notation for Multiple Ranges"
+      value: "19001001-19001006,19003001-19003008"

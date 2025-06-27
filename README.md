@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.github.walker-tx:esv:0.3.1'
+implementation 'io.github.walker-tx:esv:0.3.2'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>io.github.walker-tx</groupId>
     <artifactId>esv</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 

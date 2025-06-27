@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.571.0
-  generationVersion: 2.640.1
-  releaseVersion: 0.3.1
-  configChecksum: f644b89a9aa5139a33a0539da9e0e196
+  speakeasyVersion: internal
+  generationVersion: internal
+  releaseVersion: 0.3.2
+  configChecksum: 60cf1c7d7706b53e32edd48fc90f20d4
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.40.0
+    core: 3.40.1
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.8
@@ -26,6 +26,7 @@ features:
 generatedFiles:
   - .gitattributes
   - USAGE.md
+  - build.gradle
   - docs/models/components/PassageMeta.md
   - docs/models/components/PassageResponse.md
   - docs/models/components/Security.md
@@ -49,6 +50,7 @@ generatedFiles:
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
+  - settings.gradle
   - src/main/java/io/github/walker_tx/esv/Esv.java
   - src/main/java/io/github/walker_tx/esv/Passages.java
   - src/main/java/io/github/walker_tx/esv/SDKConfiguration.java
