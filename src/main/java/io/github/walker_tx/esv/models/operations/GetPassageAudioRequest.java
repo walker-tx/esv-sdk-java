@@ -9,10 +9,9 @@ import io.github.walker_tx.esv.utils.SpeakeasyMetadata;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetPassageAudioRequest {
-
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
      */
@@ -34,9 +33,10 @@ public class GetPassageAudioRequest {
         return query;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -47,7 +47,6 @@ public class GetPassageAudioRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetPassageAudioRequest {
         }
         GetPassageAudioRequest other = (GetPassageAudioRequest) o;
         return 
-            Objects.deepEquals(this.query, other.query);
+            Utils.enhancedDeepEquals(this.query, other.query);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             query);
     }
     
@@ -72,14 +71,16 @@ public class GetPassageAudioRequest {
         return Utils.toString(GetPassageAudioRequest.class,
                 "query", query);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String query;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -89,10 +90,12 @@ public class GetPassageAudioRequest {
             this.query = query;
             return this;
         }
-        
+
         public GetPassageAudioRequest build() {
+
             return new GetPassageAudioRequest(
                 query);
         }
+
     }
 }

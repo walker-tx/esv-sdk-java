@@ -6,7 +6,7 @@ package io.github.walker_tx.esv.models.operations;
 import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
 
 import io.github.walker_tx.esv.SDKConfiguration;
-import io.github.walker_tx.esv.operations.GetPassageAudioOperation;
+import io.github.walker_tx.esv.operations.GetPassageAudio;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 import java.lang.String;
@@ -37,7 +37,7 @@ public class GetPassageAudioRequestBuilder {
     public GetPassageAudioResponse call() throws Exception {
         
         RequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
-              = new GetPassageAudioOperation( sdkConfiguration);
+              = new GetPassageAudio.Sync(sdkConfiguration);
         GetPassageAudioRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

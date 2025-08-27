@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class PassageResponse {
 
+public class PassageResponse {
     /**
      * The passage reference that was requested
      */
@@ -39,6 +38,7 @@ public class PassageResponse {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("parsed")
     private Optional<? extends List<List<Long>>> parsed;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("passage_meta")
@@ -71,7 +71,8 @@ public class PassageResponse {
     }
     
     public PassageResponse() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -114,9 +115,10 @@ public class PassageResponse {
         return (Optional<List<String>>) passages;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The passage reference that was requested
@@ -126,6 +128,7 @@ public class PassageResponse {
         this.query = Optional.ofNullable(query);
         return this;
     }
+
 
     /**
      * The passage reference that was requested
@@ -145,6 +148,7 @@ public class PassageResponse {
         return this;
     }
 
+
     /**
      * The canonical version of the passage reference
      */
@@ -163,6 +167,7 @@ public class PassageResponse {
         return this;
     }
 
+
     /**
      * Array of parsed passage references
      */
@@ -177,6 +182,7 @@ public class PassageResponse {
         this.passageMeta = Optional.ofNullable(passageMeta);
         return this;
     }
+
 
     public PassageResponse withPassageMeta(Optional<? extends List<PassageMeta>> passageMeta) {
         Utils.checkNotNull(passageMeta, "passageMeta");
@@ -193,6 +199,7 @@ public class PassageResponse {
         return this;
     }
 
+
     /**
      * Array of formatted passage text
      */
@@ -202,7 +209,6 @@ public class PassageResponse {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -213,21 +219,18 @@ public class PassageResponse {
         }
         PassageResponse other = (PassageResponse) o;
         return 
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.canonical, other.canonical) &&
-            Objects.deepEquals(this.parsed, other.parsed) &&
-            Objects.deepEquals(this.passageMeta, other.passageMeta) &&
-            Objects.deepEquals(this.passages, other.passages);
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.canonical, other.canonical) &&
+            Utils.enhancedDeepEquals(this.parsed, other.parsed) &&
+            Utils.enhancedDeepEquals(this.passageMeta, other.passageMeta) &&
+            Utils.enhancedDeepEquals(this.passages, other.passages);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            query,
-            canonical,
-            parsed,
-            passageMeta,
-            passages);
+        return Utils.enhancedHash(
+            query, canonical, parsed,
+            passageMeta, passages);
     }
     
     @Override
@@ -239,22 +242,24 @@ public class PassageResponse {
                 "passageMeta", passageMeta,
                 "passages", passages);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<String> canonical = Optional.empty();
- 
+
         private Optional<? extends List<List<Long>>> parsed = Optional.empty();
- 
+
         private Optional<? extends List<PassageMeta>> passageMeta = Optional.empty();
- 
+
         private Optional<? extends List<String>> passages = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The passage reference that was requested
@@ -274,6 +279,7 @@ public class PassageResponse {
             return this;
         }
 
+
         /**
          * The canonical version of the passage reference
          */
@@ -291,6 +297,7 @@ public class PassageResponse {
             this.canonical = canonical;
             return this;
         }
+
 
         /**
          * Array of parsed passage references
@@ -310,6 +317,7 @@ public class PassageResponse {
             return this;
         }
 
+
         public Builder passageMeta(List<PassageMeta> passageMeta) {
             Utils.checkNotNull(passageMeta, "passageMeta");
             this.passageMeta = Optional.ofNullable(passageMeta);
@@ -321,6 +329,7 @@ public class PassageResponse {
             this.passageMeta = passageMeta;
             return this;
         }
+
 
         /**
          * Array of formatted passage text
@@ -339,14 +348,13 @@ public class PassageResponse {
             this.passages = passages;
             return this;
         }
-        
+
         public PassageResponse build() {
+
             return new PassageResponse(
-                query,
-                canonical,
-                parsed,
-                passageMeta,
-                passages);
+                query, canonical, parsed,
+                passageMeta, passages);
         }
+
     }
 }

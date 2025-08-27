@@ -14,8 +14,8 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class PassageMeta {
 
@@ -23,25 +23,31 @@ public class PassageMeta {
     @JsonProperty("canonical")
     private Optional<String> canonical;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("chapter_start")
     private Optional<? extends List<Long>> chapterStart;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("chapter_end")
     private Optional<? extends List<Long>> chapterEnd;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("prev_verse")
     private Optional<Long> prevVerse;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("next_verse")
     private Optional<Long> nextVerse;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("prev_chapter")
     private Optional<? extends List<Long>> prevChapter;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("next_chapter")
@@ -73,7 +79,9 @@ public class PassageMeta {
     }
     
     public PassageMeta() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -115,15 +123,17 @@ public class PassageMeta {
         return (Optional<List<Long>>) nextChapter;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public PassageMeta withCanonical(String canonical) {
         Utils.checkNotNull(canonical, "canonical");
         this.canonical = Optional.ofNullable(canonical);
         return this;
     }
+
 
     public PassageMeta withCanonical(Optional<String> canonical) {
         Utils.checkNotNull(canonical, "canonical");
@@ -137,6 +147,7 @@ public class PassageMeta {
         return this;
     }
 
+
     public PassageMeta withChapterStart(Optional<? extends List<Long>> chapterStart) {
         Utils.checkNotNull(chapterStart, "chapterStart");
         this.chapterStart = chapterStart;
@@ -148,6 +159,7 @@ public class PassageMeta {
         this.chapterEnd = Optional.ofNullable(chapterEnd);
         return this;
     }
+
 
     public PassageMeta withChapterEnd(Optional<? extends List<Long>> chapterEnd) {
         Utils.checkNotNull(chapterEnd, "chapterEnd");
@@ -161,6 +173,7 @@ public class PassageMeta {
         return this;
     }
 
+
     public PassageMeta withPrevVerse(Optional<Long> prevVerse) {
         Utils.checkNotNull(prevVerse, "prevVerse");
         this.prevVerse = prevVerse;
@@ -172,6 +185,7 @@ public class PassageMeta {
         this.nextVerse = Optional.ofNullable(nextVerse);
         return this;
     }
+
 
     public PassageMeta withNextVerse(Optional<Long> nextVerse) {
         Utils.checkNotNull(nextVerse, "nextVerse");
@@ -185,6 +199,7 @@ public class PassageMeta {
         return this;
     }
 
+
     public PassageMeta withPrevChapter(Optional<? extends List<Long>> prevChapter) {
         Utils.checkNotNull(prevChapter, "prevChapter");
         this.prevChapter = prevChapter;
@@ -197,13 +212,13 @@ public class PassageMeta {
         return this;
     }
 
+
     public PassageMeta withNextChapter(Optional<? extends List<Long>> nextChapter) {
         Utils.checkNotNull(nextChapter, "nextChapter");
         this.nextChapter = nextChapter;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -214,24 +229,20 @@ public class PassageMeta {
         }
         PassageMeta other = (PassageMeta) o;
         return 
-            Objects.deepEquals(this.canonical, other.canonical) &&
-            Objects.deepEquals(this.chapterStart, other.chapterStart) &&
-            Objects.deepEquals(this.chapterEnd, other.chapterEnd) &&
-            Objects.deepEquals(this.prevVerse, other.prevVerse) &&
-            Objects.deepEquals(this.nextVerse, other.nextVerse) &&
-            Objects.deepEquals(this.prevChapter, other.prevChapter) &&
-            Objects.deepEquals(this.nextChapter, other.nextChapter);
+            Utils.enhancedDeepEquals(this.canonical, other.canonical) &&
+            Utils.enhancedDeepEquals(this.chapterStart, other.chapterStart) &&
+            Utils.enhancedDeepEquals(this.chapterEnd, other.chapterEnd) &&
+            Utils.enhancedDeepEquals(this.prevVerse, other.prevVerse) &&
+            Utils.enhancedDeepEquals(this.nextVerse, other.nextVerse) &&
+            Utils.enhancedDeepEquals(this.prevChapter, other.prevChapter) &&
+            Utils.enhancedDeepEquals(this.nextChapter, other.nextChapter);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            canonical,
-            chapterStart,
-            chapterEnd,
-            prevVerse,
-            nextVerse,
-            prevChapter,
+        return Utils.enhancedHash(
+            canonical, chapterStart, chapterEnd,
+            prevVerse, nextVerse, prevChapter,
             nextChapter);
     }
     
@@ -246,26 +257,28 @@ public class PassageMeta {
                 "prevChapter", prevChapter,
                 "nextChapter", nextChapter);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> canonical = Optional.empty();
- 
+
         private Optional<? extends List<Long>> chapterStart = Optional.empty();
- 
+
         private Optional<? extends List<Long>> chapterEnd = Optional.empty();
- 
+
         private Optional<Long> prevVerse = Optional.empty();
- 
+
         private Optional<Long> nextVerse = Optional.empty();
- 
+
         private Optional<? extends List<Long>> prevChapter = Optional.empty();
- 
+
         private Optional<? extends List<Long>> nextChapter = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder canonical(String canonical) {
             Utils.checkNotNull(canonical, "canonical");
@@ -279,6 +292,7 @@ public class PassageMeta {
             return this;
         }
 
+
         public Builder chapterStart(List<Long> chapterStart) {
             Utils.checkNotNull(chapterStart, "chapterStart");
             this.chapterStart = Optional.ofNullable(chapterStart);
@@ -290,6 +304,7 @@ public class PassageMeta {
             this.chapterStart = chapterStart;
             return this;
         }
+
 
         public Builder chapterEnd(List<Long> chapterEnd) {
             Utils.checkNotNull(chapterEnd, "chapterEnd");
@@ -303,6 +318,7 @@ public class PassageMeta {
             return this;
         }
 
+
         public Builder prevVerse(long prevVerse) {
             Utils.checkNotNull(prevVerse, "prevVerse");
             this.prevVerse = Optional.ofNullable(prevVerse);
@@ -314,6 +330,7 @@ public class PassageMeta {
             this.prevVerse = prevVerse;
             return this;
         }
+
 
         public Builder nextVerse(long nextVerse) {
             Utils.checkNotNull(nextVerse, "nextVerse");
@@ -327,6 +344,7 @@ public class PassageMeta {
             return this;
         }
 
+
         public Builder prevChapter(List<Long> prevChapter) {
             Utils.checkNotNull(prevChapter, "prevChapter");
             this.prevChapter = Optional.ofNullable(prevChapter);
@@ -339,6 +357,7 @@ public class PassageMeta {
             return this;
         }
 
+
         public Builder nextChapter(List<Long> nextChapter) {
             Utils.checkNotNull(nextChapter, "nextChapter");
             this.nextChapter = Optional.ofNullable(nextChapter);
@@ -350,16 +369,14 @@ public class PassageMeta {
             this.nextChapter = nextChapter;
             return this;
         }
-        
+
         public PassageMeta build() {
+
             return new PassageMeta(
-                canonical,
-                chapterStart,
-                chapterEnd,
-                prevVerse,
-                nextVerse,
-                prevChapter,
+                canonical, chapterStart, chapterEnd,
+                prevVerse, nextVerse, prevChapter,
                 nextChapter);
         }
+
     }
 }

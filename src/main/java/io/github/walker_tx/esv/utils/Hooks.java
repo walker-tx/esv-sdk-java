@@ -27,7 +27,7 @@ import io.github.walker_tx.esv.utils.Hook.SdkInitData;
  * For example, this code will add a transaction id header to every request:
  * 
  * <pre>
- * hooks.registerBeforeRequest((context, request) -> {
+ * hooks.registerBeforeRequest((context, request) -&gt; {
  *     request.headers().map().put("acme-transaction-id", nextTransactionId());
  *     return request;
  * });

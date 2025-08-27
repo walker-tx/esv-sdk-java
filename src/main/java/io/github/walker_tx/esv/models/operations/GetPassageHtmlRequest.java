@@ -13,11 +13,10 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetPassageHtmlRequest {
 
+public class GetPassageHtmlRequest {
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
      */
@@ -177,7 +176,12 @@ public class GetPassageHtmlRequest {
     
     public GetPassageHtmlRequest(
             String query) {
-        this(query, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(query, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -316,9 +320,10 @@ public class GetPassageHtmlRequest {
         return divClasses;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -338,6 +343,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include passage references before passages
      */
@@ -355,6 +361,7 @@ public class GetPassageHtmlRequest {
         this.includeVerseNumbers = Optional.ofNullable(includeVerseNumbers);
         return this;
     }
+
 
     /**
      * Include verse numbers
@@ -374,6 +381,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include the verse number for the first verse of a chapter
      */
@@ -391,6 +399,7 @@ public class GetPassageHtmlRequest {
         this.includeFootnotes = Optional.ofNullable(includeFootnotes);
         return this;
     }
+
 
     /**
      * Include callouts to footnotes in the text.
@@ -410,6 +419,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include footnote body content
      */
@@ -427,6 +437,7 @@ public class GetPassageHtmlRequest {
         this.includeHeadings = Optional.ofNullable(includeHeadings);
         return this;
     }
+
 
     /**
      * Include passage headings
@@ -446,6 +457,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include a short copyright notice
      */
@@ -463,6 +475,7 @@ public class GetPassageHtmlRequest {
         this.includeCopyright = Optional.ofNullable(includeCopyright);
         return this;
     }
+
 
     /**
      * Include the full copyright notice
@@ -482,6 +495,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include horizontal lines between passages
      */
@@ -499,6 +513,7 @@ public class GetPassageHtmlRequest {
         this.includeHeadingHorizontalLines = Optional.ofNullable(includeHeadingHorizontalLines);
         return this;
     }
+
 
     /**
      * Include horizontal lines under headings
@@ -518,6 +533,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Length of horizontal lines
      */
@@ -535,6 +551,7 @@ public class GetPassageHtmlRequest {
         this.includeSelahs = Optional.ofNullable(includeSelahs);
         return this;
     }
+
 
     /**
      * Include "Selah" in passage text
@@ -554,6 +571,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Include a link to the ESV API CSS file
      */
@@ -571,6 +589,7 @@ public class GetPassageHtmlRequest {
         this.inlineStyles = Optional.ofNullable(inlineStyles);
         return this;
     }
+
 
     /**
      * Include inline styles on HTML elements
@@ -590,6 +609,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Wrap the HTML output in a div with class="esv"
      */
@@ -608,6 +628,7 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
+
     /**
      * Classes to add to the wrapping div
      */
@@ -617,7 +638,6 @@ public class GetPassageHtmlRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -628,45 +648,34 @@ public class GetPassageHtmlRequest {
         }
         GetPassageHtmlRequest other = (GetPassageHtmlRequest) o;
         return 
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.includePassageReferences, other.includePassageReferences) &&
-            Objects.deepEquals(this.includeVerseNumbers, other.includeVerseNumbers) &&
-            Objects.deepEquals(this.includeFirstVerseNumbers, other.includeFirstVerseNumbers) &&
-            Objects.deepEquals(this.includeFootnotes, other.includeFootnotes) &&
-            Objects.deepEquals(this.includeFootnoteBody, other.includeFootnoteBody) &&
-            Objects.deepEquals(this.includeHeadings, other.includeHeadings) &&
-            Objects.deepEquals(this.includeShortCopyright, other.includeShortCopyright) &&
-            Objects.deepEquals(this.includeCopyright, other.includeCopyright) &&
-            Objects.deepEquals(this.includePassageHorizontalLines, other.includePassageHorizontalLines) &&
-            Objects.deepEquals(this.includeHeadingHorizontalLines, other.includeHeadingHorizontalLines) &&
-            Objects.deepEquals(this.horizontalLineLength, other.horizontalLineLength) &&
-            Objects.deepEquals(this.includeSelahs, other.includeSelahs) &&
-            Objects.deepEquals(this.includeCssLink, other.includeCssLink) &&
-            Objects.deepEquals(this.inlineStyles, other.inlineStyles) &&
-            Objects.deepEquals(this.wrappingDiv, other.wrappingDiv) &&
-            Objects.deepEquals(this.divClasses, other.divClasses);
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.includePassageReferences, other.includePassageReferences) &&
+            Utils.enhancedDeepEquals(this.includeVerseNumbers, other.includeVerseNumbers) &&
+            Utils.enhancedDeepEquals(this.includeFirstVerseNumbers, other.includeFirstVerseNumbers) &&
+            Utils.enhancedDeepEquals(this.includeFootnotes, other.includeFootnotes) &&
+            Utils.enhancedDeepEquals(this.includeFootnoteBody, other.includeFootnoteBody) &&
+            Utils.enhancedDeepEquals(this.includeHeadings, other.includeHeadings) &&
+            Utils.enhancedDeepEquals(this.includeShortCopyright, other.includeShortCopyright) &&
+            Utils.enhancedDeepEquals(this.includeCopyright, other.includeCopyright) &&
+            Utils.enhancedDeepEquals(this.includePassageHorizontalLines, other.includePassageHorizontalLines) &&
+            Utils.enhancedDeepEquals(this.includeHeadingHorizontalLines, other.includeHeadingHorizontalLines) &&
+            Utils.enhancedDeepEquals(this.horizontalLineLength, other.horizontalLineLength) &&
+            Utils.enhancedDeepEquals(this.includeSelahs, other.includeSelahs) &&
+            Utils.enhancedDeepEquals(this.includeCssLink, other.includeCssLink) &&
+            Utils.enhancedDeepEquals(this.inlineStyles, other.inlineStyles) &&
+            Utils.enhancedDeepEquals(this.wrappingDiv, other.wrappingDiv) &&
+            Utils.enhancedDeepEquals(this.divClasses, other.divClasses);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            query,
-            includePassageReferences,
-            includeVerseNumbers,
-            includeFirstVerseNumbers,
-            includeFootnotes,
-            includeFootnoteBody,
-            includeHeadings,
-            includeShortCopyright,
-            includeCopyright,
-            includePassageHorizontalLines,
-            includeHeadingHorizontalLines,
-            horizontalLineLength,
-            includeSelahs,
-            includeCssLink,
-            inlineStyles,
-            wrappingDiv,
-            divClasses);
+        return Utils.enhancedHash(
+            query, includePassageReferences, includeVerseNumbers,
+            includeFirstVerseNumbers, includeFootnotes, includeFootnoteBody,
+            includeHeadings, includeShortCopyright, includeCopyright,
+            includePassageHorizontalLines, includeHeadingHorizontalLines, horizontalLineLength,
+            includeSelahs, includeCssLink, inlineStyles,
+            wrappingDiv, divClasses);
     }
     
     @Override
@@ -690,46 +699,48 @@ public class GetPassageHtmlRequest {
                 "wrappingDiv", wrappingDiv,
                 "divClasses", divClasses);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String query;
- 
+
         private Optional<Boolean> includePassageReferences;
- 
+
         private Optional<Boolean> includeVerseNumbers;
- 
+
         private Optional<Boolean> includeFirstVerseNumbers;
- 
+
         private Optional<Boolean> includeFootnotes;
- 
+
         private Optional<Boolean> includeFootnoteBody;
- 
+
         private Optional<Boolean> includeHeadings;
- 
+
         private Optional<Boolean> includeShortCopyright;
- 
+
         private Optional<Boolean> includeCopyright;
- 
+
         private Optional<Boolean> includePassageHorizontalLines;
- 
+
         private Optional<Boolean> includeHeadingHorizontalLines;
- 
+
         private Optional<Long> horizontalLineLength;
- 
+
         private Optional<Boolean> includeSelahs;
- 
+
         private Optional<Boolean> includeCssLink;
- 
+
         private Optional<Boolean> inlineStyles;
- 
+
         private Optional<Boolean> wrappingDiv;
- 
+
         private Optional<String> divClasses;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -739,6 +750,7 @@ public class GetPassageHtmlRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Include passage references before passages
@@ -758,6 +770,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include verse numbers
          */
@@ -775,6 +788,7 @@ public class GetPassageHtmlRequest {
             this.includeVerseNumbers = includeVerseNumbers;
             return this;
         }
+
 
         /**
          * Include the verse number for the first verse of a chapter
@@ -794,6 +808,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include callouts to footnotes in the text.
          */
@@ -811,6 +826,7 @@ public class GetPassageHtmlRequest {
             this.includeFootnotes = includeFootnotes;
             return this;
         }
+
 
         /**
          * Include footnote body content
@@ -830,6 +846,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include passage headings
          */
@@ -847,6 +864,7 @@ public class GetPassageHtmlRequest {
             this.includeHeadings = includeHeadings;
             return this;
         }
+
 
         /**
          * Include a short copyright notice
@@ -866,6 +884,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include the full copyright notice
          */
@@ -883,6 +902,7 @@ public class GetPassageHtmlRequest {
             this.includeCopyright = includeCopyright;
             return this;
         }
+
 
         /**
          * Include horizontal lines between passages
@@ -902,6 +922,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include horizontal lines under headings
          */
@@ -919,6 +940,7 @@ public class GetPassageHtmlRequest {
             this.includeHeadingHorizontalLines = includeHeadingHorizontalLines;
             return this;
         }
+
 
         /**
          * Length of horizontal lines
@@ -938,6 +960,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include "Selah" in passage text
          */
@@ -955,6 +978,7 @@ public class GetPassageHtmlRequest {
             this.includeSelahs = includeSelahs;
             return this;
         }
+
 
         /**
          * Include a link to the ESV API CSS file
@@ -974,6 +998,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Include inline styles on HTML elements
          */
@@ -991,6 +1016,7 @@ public class GetPassageHtmlRequest {
             this.inlineStyles = inlineStyles;
             return this;
         }
+
 
         /**
          * Wrap the HTML output in a div with class="esv"
@@ -1010,6 +1036,7 @@ public class GetPassageHtmlRequest {
             return this;
         }
 
+
         /**
          * Classes to add to the wrapping div
          */
@@ -1027,7 +1054,7 @@ public class GetPassageHtmlRequest {
             this.divClasses = divClasses;
             return this;
         }
-        
+
         public GetPassageHtmlRequest build() {
             if (includePassageReferences == null) {
                 includePassageReferences = _SINGLETON_VALUE_IncludePassageReferences.value();
@@ -1077,25 +1104,16 @@ public class GetPassageHtmlRequest {
             if (divClasses == null) {
                 divClasses = _SINGLETON_VALUE_DivClasses.value();
             }
+
             return new GetPassageHtmlRequest(
-                query,
-                includePassageReferences,
-                includeVerseNumbers,
-                includeFirstVerseNumbers,
-                includeFootnotes,
-                includeFootnoteBody,
-                includeHeadings,
-                includeShortCopyright,
-                includeCopyright,
-                includePassageHorizontalLines,
-                includeHeadingHorizontalLines,
-                horizontalLineLength,
-                includeSelahs,
-                includeCssLink,
-                inlineStyles,
-                wrappingDiv,
-                divClasses);
+                query, includePassageReferences, includeVerseNumbers,
+                includeFirstVerseNumbers, includeFootnotes, includeFootnoteBody,
+                includeHeadings, includeShortCopyright, includeCopyright,
+                includePassageHorizontalLines, includeHeadingHorizontalLines, horizontalLineLength,
+                includeSelahs, includeCssLink, inlineStyles,
+                wrappingDiv, divClasses);
         }
+
 
         private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_IncludePassageReferences =
                 new LazySingletonValue<>(

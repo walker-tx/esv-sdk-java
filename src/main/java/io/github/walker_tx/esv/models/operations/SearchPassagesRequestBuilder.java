@@ -10,7 +10,7 @@ import static io.github.walker_tx.esv.utils.Utils.toStream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.walker_tx.esv.SDKConfiguration;
-import io.github.walker_tx.esv.operations.SearchPassagesOperation;
+import io.github.walker_tx.esv.operations.SearchPassages;
 import io.github.walker_tx.esv.utils.LazySingletonValue;
 import io.github.walker_tx.esv.utils.Utils;
 import io.github.walker_tx.esv.utils.pagination.PageTracker;
@@ -72,7 +72,7 @@ public class SearchPassagesRequestBuilder {
     public SearchPassagesResponse call() throws Exception {
         
         RequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
-              = new SearchPassagesOperation( sdkConfiguration);
+              = new SearchPassages.Sync(sdkConfiguration);
         SearchPassagesRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));
@@ -94,7 +94,7 @@ public class SearchPassagesRequestBuilder {
     public Iterable<SearchPassagesResponse> callAsIterable() {
         
         RequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
-              = new SearchPassagesOperation( sdkConfiguration);
+              = new SearchPassages.Sync(sdkConfiguration);
         SearchPassagesRequest request = buildRequest();
         Iterator<HttpResponse<InputStream>> iterator = new Paginator<>(
             request,

@@ -13,7 +13,7 @@ public class Application {
     public static void main(String[] args) throws Error, Exception {
 
         Esv sdk = Esv.builder()
-                .apiKey("<YOUR_API_KEY_HERE>")
+                .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
         GetPassageHtmlRequest req = GetPassageHtmlRequest.builder()

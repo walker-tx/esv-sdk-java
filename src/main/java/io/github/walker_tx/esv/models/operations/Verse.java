@@ -11,11 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class Verse {
 
+public class Verse {
     /**
      * Verse reference
      */
@@ -60,9 +59,10 @@ public class Verse {
         return text;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Verse reference
@@ -72,6 +72,7 @@ public class Verse {
         this.verse = Optional.ofNullable(verse);
         return this;
     }
+
 
     /**
      * Verse reference
@@ -91,6 +92,7 @@ public class Verse {
         return this;
     }
 
+
     /**
      * Verse text
      */
@@ -100,7 +102,6 @@ public class Verse {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -111,15 +112,14 @@ public class Verse {
         }
         Verse other = (Verse) o;
         return 
-            Objects.deepEquals(this.verse, other.verse) &&
-            Objects.deepEquals(this.text, other.text);
+            Utils.enhancedDeepEquals(this.verse, other.verse) &&
+            Utils.enhancedDeepEquals(this.text, other.text);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            verse,
-            text);
+        return Utils.enhancedHash(
+            verse, text);
     }
     
     @Override
@@ -128,16 +128,18 @@ public class Verse {
                 "verse", verse,
                 "text", text);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> verse = Optional.empty();
- 
+
         private Optional<String> text = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Verse reference
@@ -157,6 +159,7 @@ public class Verse {
             return this;
         }
 
+
         /**
          * Verse text
          */
@@ -174,11 +177,12 @@ public class Verse {
             this.text = text;
             return this;
         }
-        
+
         public Verse build() {
+
             return new Verse(
-                verse,
-                text);
+                verse, text);
         }
+
     }
 }

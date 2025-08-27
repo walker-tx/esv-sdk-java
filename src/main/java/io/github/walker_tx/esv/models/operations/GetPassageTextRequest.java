@@ -14,11 +14,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetPassageTextRequest {
 
+public class GetPassageTextRequest {
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
      */
@@ -205,7 +204,13 @@ public class GetPassageTextRequest {
     
     public GetPassageTextRequest(
             String query) {
-        this(query, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(query, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -369,9 +374,10 @@ public class GetPassageTextRequest {
         return lineLength;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -391,6 +397,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Include passage references before passages
      */
@@ -408,6 +415,7 @@ public class GetPassageTextRequest {
         this.includeVerseNumbers = Optional.ofNullable(includeVerseNumbers);
         return this;
     }
+
 
     /**
      * Include verse numbers
@@ -427,6 +435,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Include the verse number for the first verse of a chapter
      */
@@ -444,6 +453,7 @@ public class GetPassageTextRequest {
         this.includeFootnotes = Optional.ofNullable(includeFootnotes);
         return this;
     }
+
 
     /**
      * Include callouts to footnotes in the text.
@@ -463,6 +473,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Include footnote body content
      */
@@ -480,6 +491,7 @@ public class GetPassageTextRequest {
         this.includeHeadings = Optional.ofNullable(includeHeadings);
         return this;
     }
+
 
     /**
      * Include passage headings
@@ -499,6 +511,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Include a short copyright notice
      */
@@ -516,6 +529,7 @@ public class GetPassageTextRequest {
         this.includeCopyright = Optional.ofNullable(includeCopyright);
         return this;
     }
+
 
     /**
      * Include the full copyright notice
@@ -535,6 +549,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Include horizontal lines between passages
      */
@@ -552,6 +567,7 @@ public class GetPassageTextRequest {
         this.includeHeadingHorizontalLines = Optional.ofNullable(includeHeadingHorizontalLines);
         return this;
     }
+
 
     /**
      * Include horizontal lines under headings
@@ -571,6 +587,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Length of horizontal lines
      */
@@ -588,6 +605,7 @@ public class GetPassageTextRequest {
         this.includeSelahs = Optional.ofNullable(includeSelahs);
         return this;
     }
+
 
     /**
      * Include "Selah" in passage text
@@ -607,6 +625,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Character to use for indentation
      */
@@ -624,6 +643,7 @@ public class GetPassageTextRequest {
         this.indentParagraphs = Optional.ofNullable(indentParagraphs);
         return this;
     }
+
 
     /**
      * Number of indentation characters for paragraphs
@@ -643,6 +663,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Number of indentation characters for poetry
      */
@@ -660,6 +681,7 @@ public class GetPassageTextRequest {
         this.indentPoetryLines = Optional.ofNullable(indentPoetryLines);
         return this;
     }
+
 
     /**
      * Number of indentation characters for poetry lines
@@ -679,6 +701,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Number of indentation characters for declares
      */
@@ -696,6 +719,7 @@ public class GetPassageTextRequest {
         this.indentPsalmDoxology = Optional.ofNullable(indentPsalmDoxology);
         return this;
     }
+
 
     /**
      * Number of indentation characters for Psalm doxology
@@ -715,6 +739,7 @@ public class GetPassageTextRequest {
         return this;
     }
 
+
     /**
      * Maximum line length
      */
@@ -724,7 +749,6 @@ public class GetPassageTextRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -735,51 +759,38 @@ public class GetPassageTextRequest {
         }
         GetPassageTextRequest other = (GetPassageTextRequest) o;
         return 
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.includePassageReferences, other.includePassageReferences) &&
-            Objects.deepEquals(this.includeVerseNumbers, other.includeVerseNumbers) &&
-            Objects.deepEquals(this.includeFirstVerseNumbers, other.includeFirstVerseNumbers) &&
-            Objects.deepEquals(this.includeFootnotes, other.includeFootnotes) &&
-            Objects.deepEquals(this.includeFootnoteBody, other.includeFootnoteBody) &&
-            Objects.deepEquals(this.includeHeadings, other.includeHeadings) &&
-            Objects.deepEquals(this.includeShortCopyright, other.includeShortCopyright) &&
-            Objects.deepEquals(this.includeCopyright, other.includeCopyright) &&
-            Objects.deepEquals(this.includePassageHorizontalLines, other.includePassageHorizontalLines) &&
-            Objects.deepEquals(this.includeHeadingHorizontalLines, other.includeHeadingHorizontalLines) &&
-            Objects.deepEquals(this.horizontalLineLength, other.horizontalLineLength) &&
-            Objects.deepEquals(this.includeSelahs, other.includeSelahs) &&
-            Objects.deepEquals(this.indentUsing, other.indentUsing) &&
-            Objects.deepEquals(this.indentParagraphs, other.indentParagraphs) &&
-            Objects.deepEquals(this.indentPoetry, other.indentPoetry) &&
-            Objects.deepEquals(this.indentPoetryLines, other.indentPoetryLines) &&
-            Objects.deepEquals(this.indentDeclares, other.indentDeclares) &&
-            Objects.deepEquals(this.indentPsalmDoxology, other.indentPsalmDoxology) &&
-            Objects.deepEquals(this.lineLength, other.lineLength);
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.includePassageReferences, other.includePassageReferences) &&
+            Utils.enhancedDeepEquals(this.includeVerseNumbers, other.includeVerseNumbers) &&
+            Utils.enhancedDeepEquals(this.includeFirstVerseNumbers, other.includeFirstVerseNumbers) &&
+            Utils.enhancedDeepEquals(this.includeFootnotes, other.includeFootnotes) &&
+            Utils.enhancedDeepEquals(this.includeFootnoteBody, other.includeFootnoteBody) &&
+            Utils.enhancedDeepEquals(this.includeHeadings, other.includeHeadings) &&
+            Utils.enhancedDeepEquals(this.includeShortCopyright, other.includeShortCopyright) &&
+            Utils.enhancedDeepEquals(this.includeCopyright, other.includeCopyright) &&
+            Utils.enhancedDeepEquals(this.includePassageHorizontalLines, other.includePassageHorizontalLines) &&
+            Utils.enhancedDeepEquals(this.includeHeadingHorizontalLines, other.includeHeadingHorizontalLines) &&
+            Utils.enhancedDeepEquals(this.horizontalLineLength, other.horizontalLineLength) &&
+            Utils.enhancedDeepEquals(this.includeSelahs, other.includeSelahs) &&
+            Utils.enhancedDeepEquals(this.indentUsing, other.indentUsing) &&
+            Utils.enhancedDeepEquals(this.indentParagraphs, other.indentParagraphs) &&
+            Utils.enhancedDeepEquals(this.indentPoetry, other.indentPoetry) &&
+            Utils.enhancedDeepEquals(this.indentPoetryLines, other.indentPoetryLines) &&
+            Utils.enhancedDeepEquals(this.indentDeclares, other.indentDeclares) &&
+            Utils.enhancedDeepEquals(this.indentPsalmDoxology, other.indentPsalmDoxology) &&
+            Utils.enhancedDeepEquals(this.lineLength, other.lineLength);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            query,
-            includePassageReferences,
-            includeVerseNumbers,
-            includeFirstVerseNumbers,
-            includeFootnotes,
-            includeFootnoteBody,
-            includeHeadings,
-            includeShortCopyright,
-            includeCopyright,
-            includePassageHorizontalLines,
-            includeHeadingHorizontalLines,
-            horizontalLineLength,
-            includeSelahs,
-            indentUsing,
-            indentParagraphs,
-            indentPoetry,
-            indentPoetryLines,
-            indentDeclares,
-            indentPsalmDoxology,
-            lineLength);
+        return Utils.enhancedHash(
+            query, includePassageReferences, includeVerseNumbers,
+            includeFirstVerseNumbers, includeFootnotes, includeFootnoteBody,
+            includeHeadings, includeShortCopyright, includeCopyright,
+            includePassageHorizontalLines, includeHeadingHorizontalLines, horizontalLineLength,
+            includeSelahs, indentUsing, indentParagraphs,
+            indentPoetry, indentPoetryLines, indentDeclares,
+            indentPsalmDoxology, lineLength);
     }
     
     @Override
@@ -806,52 +817,54 @@ public class GetPassageTextRequest {
                 "indentPsalmDoxology", indentPsalmDoxology,
                 "lineLength", lineLength);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String query;
- 
+
         private Optional<Boolean> includePassageReferences;
- 
+
         private Optional<Boolean> includeVerseNumbers;
- 
+
         private Optional<Boolean> includeFirstVerseNumbers;
- 
+
         private Optional<Boolean> includeFootnotes;
- 
+
         private Optional<Boolean> includeFootnoteBody;
- 
+
         private Optional<Boolean> includeHeadings;
- 
+
         private Optional<Boolean> includeShortCopyright;
- 
+
         private Optional<Boolean> includeCopyright;
- 
+
         private Optional<Boolean> includePassageHorizontalLines;
- 
+
         private Optional<Boolean> includeHeadingHorizontalLines;
- 
+
         private Optional<Long> horizontalLineLength;
- 
+
         private Optional<Boolean> includeSelahs;
- 
+
         private Optional<? extends IndentUsing> indentUsing;
- 
+
         private Optional<Long> indentParagraphs;
- 
+
         private Optional<Long> indentPoetry;
- 
+
         private Optional<Long> indentPoetryLines;
- 
+
         private Optional<Long> indentDeclares;
- 
+
         private Optional<Long> indentPsalmDoxology;
- 
+
         private Optional<Long> lineLength;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Bible passage reference (e.g., "John 3:16" or "43011016")
@@ -861,6 +874,7 @@ public class GetPassageTextRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Include passage references before passages
@@ -880,6 +894,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include verse numbers
          */
@@ -897,6 +912,7 @@ public class GetPassageTextRequest {
             this.includeVerseNumbers = includeVerseNumbers;
             return this;
         }
+
 
         /**
          * Include the verse number for the first verse of a chapter
@@ -916,6 +932,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include callouts to footnotes in the text.
          */
@@ -933,6 +950,7 @@ public class GetPassageTextRequest {
             this.includeFootnotes = includeFootnotes;
             return this;
         }
+
 
         /**
          * Include footnote body content
@@ -952,6 +970,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include passage headings
          */
@@ -969,6 +988,7 @@ public class GetPassageTextRequest {
             this.includeHeadings = includeHeadings;
             return this;
         }
+
 
         /**
          * Include a short copyright notice
@@ -988,6 +1008,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include the full copyright notice
          */
@@ -1005,6 +1026,7 @@ public class GetPassageTextRequest {
             this.includeCopyright = includeCopyright;
             return this;
         }
+
 
         /**
          * Include horizontal lines between passages
@@ -1024,6 +1046,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include horizontal lines under headings
          */
@@ -1041,6 +1064,7 @@ public class GetPassageTextRequest {
             this.includeHeadingHorizontalLines = includeHeadingHorizontalLines;
             return this;
         }
+
 
         /**
          * Length of horizontal lines
@@ -1060,6 +1084,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Include "Selah" in passage text
          */
@@ -1077,6 +1102,7 @@ public class GetPassageTextRequest {
             this.includeSelahs = includeSelahs;
             return this;
         }
+
 
         /**
          * Character to use for indentation
@@ -1096,6 +1122,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Number of indentation characters for paragraphs
          */
@@ -1113,6 +1140,7 @@ public class GetPassageTextRequest {
             this.indentParagraphs = indentParagraphs;
             return this;
         }
+
 
         /**
          * Number of indentation characters for poetry
@@ -1132,6 +1160,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Number of indentation characters for poetry lines
          */
@@ -1149,6 +1178,7 @@ public class GetPassageTextRequest {
             this.indentPoetryLines = indentPoetryLines;
             return this;
         }
+
 
         /**
          * Number of indentation characters for declares
@@ -1168,6 +1198,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Number of indentation characters for Psalm doxology
          */
@@ -1186,6 +1217,7 @@ public class GetPassageTextRequest {
             return this;
         }
 
+
         /**
          * Maximum line length
          */
@@ -1203,7 +1235,7 @@ public class GetPassageTextRequest {
             this.lineLength = lineLength;
             return this;
         }
-        
+
         public GetPassageTextRequest build() {
             if (includePassageReferences == null) {
                 includePassageReferences = _SINGLETON_VALUE_IncludePassageReferences.value();
@@ -1262,28 +1294,17 @@ public class GetPassageTextRequest {
             if (lineLength == null) {
                 lineLength = _SINGLETON_VALUE_LineLength.value();
             }
+
             return new GetPassageTextRequest(
-                query,
-                includePassageReferences,
-                includeVerseNumbers,
-                includeFirstVerseNumbers,
-                includeFootnotes,
-                includeFootnoteBody,
-                includeHeadings,
-                includeShortCopyright,
-                includeCopyright,
-                includePassageHorizontalLines,
-                includeHeadingHorizontalLines,
-                horizontalLineLength,
-                includeSelahs,
-                indentUsing,
-                indentParagraphs,
-                indentPoetry,
-                indentPoetryLines,
-                indentDeclares,
-                indentPsalmDoxology,
-                lineLength);
+                query, includePassageReferences, includeVerseNumbers,
+                includeFirstVerseNumbers, includeFootnotes, includeFootnoteBody,
+                includeHeadings, includeShortCopyright, includeCopyright,
+                includePassageHorizontalLines, includeHeadingHorizontalLines, horizontalLineLength,
+                includeSelahs, indentUsing, indentParagraphs,
+                indentPoetry, indentPoetryLines, indentDeclares,
+                indentPsalmDoxology, lineLength);
         }
+
 
         private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_IncludePassageReferences =
                 new LazySingletonValue<>(

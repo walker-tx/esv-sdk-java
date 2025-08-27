@@ -12,10 +12,9 @@ import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class SearchPassagesRequest {
-
     /**
      * The text to search for
      */
@@ -71,9 +70,10 @@ public class SearchPassagesRequest {
         return page;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The text to search for
@@ -102,7 +102,6 @@ public class SearchPassagesRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -113,17 +112,15 @@ public class SearchPassagesRequest {
         }
         SearchPassagesRequest other = (SearchPassagesRequest) o;
         return 
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.pageSize, other.pageSize) &&
-            Objects.deepEquals(this.page, other.page);
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.pageSize, other.pageSize) &&
+            Utils.enhancedDeepEquals(this.page, other.page);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            query,
-            pageSize,
-            page);
+        return Utils.enhancedHash(
+            query, pageSize, page);
     }
     
     @Override
@@ -133,18 +130,20 @@ public class SearchPassagesRequest {
                 "pageSize", pageSize,
                 "page", page);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String query;
- 
+
         private Long pageSize;
- 
+
         private Long page;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The text to search for
@@ -155,6 +154,7 @@ public class SearchPassagesRequest {
             return this;
         }
 
+
         /**
          * Number of results to return per page
          */
@@ -164,6 +164,7 @@ public class SearchPassagesRequest {
             return this;
         }
 
+
         /**
          * Page number to return
          */
@@ -172,7 +173,7 @@ public class SearchPassagesRequest {
             this.page = page;
             return this;
         }
-        
+
         public SearchPassagesRequest build() {
             if (pageSize == null) {
                 pageSize = _SINGLETON_VALUE_PageSize.value();
@@ -180,11 +181,11 @@ public class SearchPassagesRequest {
             if (page == null) {
                 page = _SINGLETON_VALUE_Page.value();
             }
+
             return new SearchPassagesRequest(
-                query,
-                pageSize,
-                page);
+                query, pageSize, page);
         }
+
 
         private static final LazySingletonValue<Long> _SINGLETON_VALUE_PageSize =
                 new LazySingletonValue<>(
