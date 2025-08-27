@@ -14,7 +14,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,7 +22,6 @@ import java.util.Optional;
  * <p>Successful response
  */
 public class SearchPassagesResponseBody {
-
     /**
      * Current page number
      */
@@ -44,6 +42,7 @@ public class SearchPassagesResponseBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("total_results")
     private Optional<Long> totalResults;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("results")
@@ -66,7 +65,8 @@ public class SearchPassagesResponseBody {
     }
     
     public SearchPassagesResponseBody() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -99,9 +99,10 @@ public class SearchPassagesResponseBody {
         return (Optional<List<Result>>) results;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Current page number
@@ -111,6 +112,7 @@ public class SearchPassagesResponseBody {
         this.page = Optional.ofNullable(page);
         return this;
     }
+
 
     /**
      * Current page number
@@ -130,6 +132,7 @@ public class SearchPassagesResponseBody {
         return this;
     }
 
+
     /**
      * Total number of pages
      */
@@ -148,6 +151,7 @@ public class SearchPassagesResponseBody {
         return this;
     }
 
+
     /**
      * Total number of results
      */
@@ -163,13 +167,13 @@ public class SearchPassagesResponseBody {
         return this;
     }
 
+
     public SearchPassagesResponseBody withResults(Optional<? extends List<Result>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -180,18 +184,16 @@ public class SearchPassagesResponseBody {
         }
         SearchPassagesResponseBody other = (SearchPassagesResponseBody) o;
         return 
-            Objects.deepEquals(this.page, other.page) &&
-            Objects.deepEquals(this.totalPages, other.totalPages) &&
-            Objects.deepEquals(this.totalResults, other.totalResults) &&
-            Objects.deepEquals(this.results, other.results);
+            Utils.enhancedDeepEquals(this.page, other.page) &&
+            Utils.enhancedDeepEquals(this.totalPages, other.totalPages) &&
+            Utils.enhancedDeepEquals(this.totalResults, other.totalResults) &&
+            Utils.enhancedDeepEquals(this.results, other.results);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            page,
-            totalPages,
-            totalResults,
+        return Utils.enhancedHash(
+            page, totalPages, totalResults,
             results);
     }
     
@@ -203,20 +205,22 @@ public class SearchPassagesResponseBody {
                 "totalResults", totalResults,
                 "results", results);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Long> page = Optional.empty();
- 
+
         private Optional<Long> totalPages = Optional.empty();
- 
+
         private Optional<Long> totalResults = Optional.empty();
- 
+
         private Optional<? extends List<Result>> results = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Current page number
@@ -236,6 +240,7 @@ public class SearchPassagesResponseBody {
             return this;
         }
 
+
         /**
          * Total number of pages
          */
@@ -253,6 +258,7 @@ public class SearchPassagesResponseBody {
             this.totalPages = totalPages;
             return this;
         }
+
 
         /**
          * Total number of results
@@ -272,6 +278,7 @@ public class SearchPassagesResponseBody {
             return this;
         }
 
+
         public Builder results(List<Result> results) {
             Utils.checkNotNull(results, "results");
             this.results = Optional.ofNullable(results);
@@ -283,13 +290,13 @@ public class SearchPassagesResponseBody {
             this.results = results;
             return this;
         }
-        
+
         public SearchPassagesResponseBody build() {
+
             return new SearchPassagesResponseBody(
-                page,
-                totalPages,
-                totalResults,
+                page, totalPages, totalResults,
                 results);
         }
+
     }
 }

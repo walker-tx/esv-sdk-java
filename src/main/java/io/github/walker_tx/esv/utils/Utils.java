@@ -3,8 +3,6 @@
  */
 package io.github.walker_tx.esv.utils;
 
-import static io.github.walker_tx.esv.utils.Exceptions.rethrow;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,16 +42,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import java.util.concurrent.CompletableFuture;
 
 import javax.net.ssl.SSLSession;
 
@@ -328,11 +327,13 @@ public final class Utils {
     }
 
     public static Map<String, List<String>> getHeadersFromMetadata(Object headers, Globals globals) throws Exception {
-        if (headers == null) {
-            return Collections.emptyMap();
-        }
-
         Map<String, List<String>> result = new HashMap<>();
+        if (headers == null) {
+            // include all global headers in result if not already present
+            mergeGlobalHeaders(result, globals);
+
+            return result;
+        }
 
         Field[] fields = headers.getClass().getDeclaredFields();
 
@@ -454,14 +455,19 @@ public final class Utils {
         }
         
         // include all global headers in result if not already present
-        if (globals != null) {
-            globals.headerParamsAsStream()
-                .filter(entry -> !result.containsKey(entry.getKey()))
-                .forEach(entry -> result.put(entry.getKey(), //
-                            Arrays.asList(entry.getValue())));
-        }
+        mergeGlobalHeaders(result, globals);
 
         return result;
+    }
+
+    private static void mergeGlobalHeaders(Map<String, List<String>> headers, Globals globals) {
+        if (globals == null) {
+            return;
+        }
+        globals.headerParamsAsStream()
+                .filter(entry -> !headers.containsKey(entry.getKey()))
+                .forEach(entry -> headers.put(entry.getKey(),
+                        Collections.singletonList(entry.getValue())));
     }
 
     public static String valToString(Object value) {
@@ -487,7 +493,7 @@ public final class Utils {
 
     public static Object populateGlobal(Object value, String fieldName, String paramType,
             Globals globals) {
-        if (value == null) {
+        if (value == null && globals != null) {
             return globals.getParam(paramType, fieldName).orElse(null);
         } 
         return value;
@@ -764,6 +770,10 @@ public final class Utils {
     }
     
     static <T> Object resolveStringShape(Class<T> type, String fieldName, Object value) throws IllegalAccessException {
+        if (value == null) {
+            return value;
+        }
+
         try {
             // the presence of this TypeReference field indicates that the parameter
             // has a JsonShape of String and that we should convert BigInteger to 
@@ -832,7 +842,7 @@ public final class Utils {
                                 pending = false;
                             }
                         } catch (Exception e) {
-                            rethrow(e);
+                            Exceptions.rethrow(e);
                         }
                     }
                 };
@@ -1439,5 +1449,140 @@ public final class Utils {
             }
         };
     }
+   
+    /**
+     * Returns true if and only if the two objects are deeply equal, uses
+     * mathematical equivalence for Number subclasses ({@code 2 == 2.0}) instead of
+     * {@code Number.equals}.
+     * 
+     * <p>
+     * Should be paired with {@link #enhancedHashCode(Object)} to ensure the
+     * equals/hashCode contract.
+     * 
+     * @param a the first object to compare
+     * @param b the second object to compare
+     * @return true if the objects are deeply equal bearing in mind mathematical
+     *         equivalence, false otherwise
+     */
+    public static boolean enhancedDeepEquals(Object a, Object b) {
+        if (a == null && b == null) {
+            return true;
+        } else if (a == null || b == null) {
+            return false;
+        } else if (a instanceof Optional && b instanceof Optional) {
+            return enhancedDeepEquals(((Optional<?>) a).orElse(null), ((Optional<?>) b).orElse(null));
+        } else if (a instanceof JsonNullable && b instanceof JsonNullable) {
+            JsonNullable<?> x = (JsonNullable<?>) a;
+            JsonNullable<?> y = (JsonNullable<?>) b;
+            if (x.isPresent() && y.isPresent()) {
+                return enhancedDeepEquals(x.get(), y.get());
+            } else {
+                return Objects.deepEquals(x, y);
+            }
+        } else if (a instanceof List && b instanceof List) {
+            List<?> listA = (List<?>) a;
+            List<?> listB = (List<?>) b;
+            if (listA.size() != listB.size()) {
+                return false;
+            }
+            for (int i = 0; i < listA.size(); i++) {
+                if (!enhancedDeepEquals(listA.get(i), listB.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (a instanceof Map && b instanceof Map) {
+            // don't expect number keys, just Strings and enums
+            Map<?, ?> x = (Map<?, ?>) a;
+            Map<?, ?> y = (Map<?, ?>) b;
+            if (x.size() != y.size()) {
+                return false;
+            }
+            for (Entry<?, ?> entry : x.entrySet()) {
+                Object key = entry.getKey();
+                Object value1 = entry.getValue();
+                Object value2 = y.get(key);
+                if (!enhancedDeepEquals(value1, value2)) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (a instanceof Number && b instanceof Number) {
+            // compare values mathematically
+            BigDecimal x = toBigDecimal((Number) a);
+            BigDecimal y = toBigDecimal((Number) b);
+            return x.compareTo(y) == 0;
+        } else {
+            // we use deepEquals so that byte[] fields are compared appropriately
+            return Objects.deepEquals(a,  b);
+        }    
+    }
+    
+    /**
+     * Returns a combined hash code (applying {@link #enhancedHashCode}) for the
+     * given objects (usually the fields of an object whose hashCode we want to
+     * be calculated).
+     * 
+     * @param objects
+     * @return combined hash code for the objects, 0 if the objects are null
+     */
+    public static int enhancedHash(Object... objects) {
+        if (objects == null) {
+            return 0;
+        }
+        int result = 1;
+        for (Object o : objects) {
+            result = 31 * result + (o == null ? 0 :enhancedHashCode(o));
+        }
+        return result;
+    }
+    
+    /**
+     * Returns a hash code that complies with the equals/hashCode contract when
+     * equals is implemented by {@link #enhancedDeepEquals(Object, Object)}.
+     * 
+     * @param o object to calculate the hash code for (can be null)
+     * @return hash code for the object, 0 if the object is null
+     */
+    public static int enhancedHashCode(Object o) {
+        if (o == null) {
+            return 0;
+        } else if (o instanceof Optional) {
+            Optional<?> opt = (Optional<?>) o;
+            return opt.map(Utils::enhancedHashCode).orElse(Optional.empty().hashCode());
+        } else if (o instanceof JsonNullable) {
+            JsonNullable<?> n = (JsonNullable<?>) o;
+            return n.isPresent() ? Utils.enhancedHashCode(n.get()) : JsonNullable.undefined().hashCode();
+        } else if (o instanceof List) {
+            return ((List<?>) o).stream().mapToInt(Utils::enhancedHashCode).sum();
+        } else if (o instanceof Map) {
+            // don't expect number keys, just Strings and enums
+            Map<?, ?> m = (Map<?, ?>) o;
+            return m.entrySet() //
+                    .stream() //
+                    .mapToInt(entry -> Objects.hashCode(entry.getKey()) + Utils.enhancedHashCode(entry.getValue())) //
+                    .sum();
+        } else if (o instanceof Number) {
+            return toBigDecimal((Number) o).stripTrailingZeros().hashCode();
+        } else {
+            return o.hashCode();
+        }
+    }
 
+    private static BigDecimal toBigDecimal(Number number) {
+        if (number instanceof BigDecimal) {
+            return (BigDecimal) number;
+        } else if (number instanceof BigInteger) {
+            return new BigDecimal((BigInteger) number);
+        } else if (number instanceof Byte || number instanceof Short ||
+                   number instanceof Integer || number instanceof Long) {
+            return BigDecimal.valueOf(number.longValue());
+        } else if (number instanceof Float || number instanceof Double) {
+            // Prevent precision issues for float/double
+            return BigDecimal.valueOf(number.doubleValue());
+        } else {
+            // Fallback: treat as double
+            return BigDecimal.valueOf(number.doubleValue());
+        }
+    }
 }

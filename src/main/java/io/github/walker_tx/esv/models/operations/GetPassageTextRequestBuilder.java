@@ -6,7 +6,7 @@ package io.github.walker_tx.esv.models.operations;
 import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
 
 import io.github.walker_tx.esv.SDKConfiguration;
-import io.github.walker_tx.esv.operations.GetPassageTextOperation;
+import io.github.walker_tx.esv.operations.GetPassageText;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 
@@ -28,7 +28,7 @@ public class GetPassageTextRequestBuilder {
     public GetPassageTextResponse call() throws Exception {
         
         RequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
-              = new GetPassageTextOperation( sdkConfiguration);
+              = new GetPassageText.Sync(sdkConfiguration);
 
         return operation.handleResponse(operation.doRequest(request));
     }

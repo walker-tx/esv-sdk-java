@@ -17,14 +17,12 @@ import io.github.walker_tx.esv.models.operations.GetPassageTextResponse;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequest;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequestBuilder;
 import io.github.walker_tx.esv.models.operations.SearchPassagesResponse;
-import io.github.walker_tx.esv.operations.GetPassageAudioOperation;
-import io.github.walker_tx.esv.operations.GetPassageHtmlOperation;
-import io.github.walker_tx.esv.operations.GetPassageTextOperation;
-import io.github.walker_tx.esv.operations.SearchPassagesOperation;
+import io.github.walker_tx.esv.operations.GetPassageAudio;
+import io.github.walker_tx.esv.operations.GetPassageHtml;
+import io.github.walker_tx.esv.operations.GetPassageText;
+import io.github.walker_tx.esv.operations.SearchPassages;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
-import java.util.Optional;
 
 
 public class Passages {
@@ -58,13 +56,11 @@ public class Passages {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPassageHtmlResponse getHtml(
-            GetPassageHtmlRequest request) throws Exception {
+    public GetPassageHtmlResponse getHtml(GetPassageHtmlRequest request) throws Exception {
         RequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
-              = new GetPassageHtmlOperation( sdkConfiguration);
+              = new GetPassageHtml.Sync(sdkConfiguration);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Search Bible passages
@@ -93,8 +89,7 @@ public class Passages {
      * @throws Exception if the API call fails
      */
     public SearchPassagesResponse search(
-            String query,
-            long pageSize,
+            String query, long pageSize,
             long page) throws Exception {
         SearchPassagesRequest request =
             SearchPassagesRequest
@@ -104,10 +99,9 @@ public class Passages {
                 .page(page)
                 .build();
         RequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
-              = new SearchPassagesOperation( sdkConfiguration);
+              = new SearchPassages.Sync(sdkConfiguration);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Get Bible passage audio
@@ -133,18 +127,16 @@ public class Passages {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPassageAudioResponse getAudio(
-            String query) throws Exception {
+    public GetPassageAudioResponse getAudio(String query) throws Exception {
         GetPassageAudioRequest request =
             GetPassageAudioRequest
                 .builder()
                 .query(query)
                 .build();
         RequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
-              = new GetPassageAudioOperation( sdkConfiguration);
+              = new GetPassageAudio.Sync(sdkConfiguration);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Get Bible passage text
@@ -170,10 +162,9 @@ public class Passages {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPassageTextResponse getText(
-            GetPassageTextRequest request) throws Exception {
+    public GetPassageTextResponse getText(GetPassageTextRequest request) throws Exception {
         RequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
-              = new GetPassageTextOperation( sdkConfiguration);
+              = new GetPassageText.Sync(sdkConfiguration);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -21,7 +21,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 0.4.0
+  version: 0.5.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: esv
@@ -31,6 +31,7 @@ java:
   companyName: walker-tx
   companyURL: github.com/walker-tx
   defaultErrorName: APIException
+  enableAsync: false
   enableCustomCodeRegions: false
   flattenGlobalSecurity: true
   githubURL: github.com/walker-tx/esv-sdk-java
@@ -50,6 +51,7 @@ java:
     shortName: MIT
     url: https://mit-license.org/
   maxMethodParams: 4
+  nullFriendlyParameters: false
   outputModelSuffix: output
   projectName: esv
   templateVersion: v2

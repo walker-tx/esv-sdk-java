@@ -3,20 +3,20 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.572.0
-  generationVersion: 2.643.0
-  releaseVersion: 0.4.0
-  configChecksum: f1bf6d6e5e5eac892e993b7a1426316e
+  speakeasyVersion: 1.606.5
+  generationVersion: 2.687.1
+  releaseVersion: 0.5.0
+  configChecksum: 6a5eb492066b643bfec13d42e20c13dc
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.41.0
+    core: 3.45.4
     downloadStreams: 0.1.1
     flattening: 2.81.1
-    globalSecurity: 2.82.8
+    globalSecurity: 2.83.0
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
@@ -77,21 +77,20 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponse.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponseBody.java
   - src/main/java/io/github/walker_tx/esv/models/operations/Verse.java
-  - src/main/java/io/github/walker_tx/esv/operations/GetPassageAudioOperation.java
-  - src/main/java/io/github/walker_tx/esv/operations/GetPassageHtmlOperation.java
-  - src/main/java/io/github/walker_tx/esv/operations/GetPassageTextOperation.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageAudio.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageHtml.java
+  - src/main/java/io/github/walker_tx/esv/operations/GetPassageText.java
   - src/main/java/io/github/walker_tx/esv/operations/Operations.java
-  - src/main/java/io/github/walker_tx/esv/operations/SearchPassagesOperation.java
+  - src/main/java/io/github/walker_tx/esv/operations/SearchPassages.java
   - src/main/java/io/github/walker_tx/esv/utils/BackoffStrategy.java
   - src/main/java/io/github/walker_tx/esv/utils/BigDecimalString.java
   - src/main/java/io/github/walker_tx/esv/utils/BigIntegerString.java
+  - src/main/java/io/github/walker_tx/esv/utils/BlockingParser.java
   - src/main/java/io/github/walker_tx/esv/utils/Constants.java
   - src/main/java/io/github/walker_tx/esv/utils/CopiableInputStream.java
   - src/main/java/io/github/walker_tx/esv/utils/Deserializers.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStream.java
-  - src/main/java/io/github/walker_tx/esv/utils/EventStreamLineReader.java
   - src/main/java/io/github/walker_tx/esv/utils/EventStreamMessage.java
-  - src/main/java/io/github/walker_tx/esv/utils/EventStreamReader.java
   - src/main/java/io/github/walker_tx/esv/utils/Exceptions.java
   - src/main/java/io/github/walker_tx/esv/utils/FormMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/Globals.java
@@ -119,6 +118,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/RequestBody.java
   - src/main/java/io/github/walker_tx/esv/utils/RequestMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/Response.java
+  - src/main/java/io/github/walker_tx/esv/utils/ResponseWithBody.java
   - src/main/java/io/github/walker_tx/esv/utils/Retries.java
   - src/main/java/io/github/walker_tx/esv/utils/RetryConfig.java
   - src/main/java/io/github/walker_tx/esv/utils/Security.java
@@ -127,6 +127,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/SessionManager.java
   - src/main/java/io/github/walker_tx/esv/utils/SpeakeasyHTTPClient.java
   - src/main/java/io/github/walker_tx/esv/utils/SpeakeasyMetadata.java
+  - src/main/java/io/github/walker_tx/esv/utils/StreamingParser.java
   - src/main/java/io/github/walker_tx/esv/utils/TypedObject.java
   - src/main/java/io/github/walker_tx/esv/utils/Types.java
   - src/main/java/io/github/walker_tx/esv/utils/Utf8UrlEncoder.java
@@ -136,7 +137,6 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/pagination/PageTracker.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/Paginator.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/ProgressTrackerStrategy.java
-  - src/main/java/io/github/walker_tx/esv/utils/pagination/ResponseWithBody.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/ResultsPageTracker.java
 examples:
   getPassageHtml:

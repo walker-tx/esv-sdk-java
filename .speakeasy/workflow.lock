@@ -1,21 +1,21 @@
-speakeasyVersion: 1.572.0
+speakeasyVersion: 1.606.5
 sources:
     Esv-OAS:
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:4e4bf2add3c03627f6f29a74c2a189ea0cf2ed97c51fcc5311e486e6e71094ee
-        sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
+        sourceRevisionDigest: sha256:f46fe7caf10d4567e931fa81d1532054288617e4c1a38fbfe1e04ea139013cdf
+        sourceBlobDigest: sha256:fe29c5d31956d9b7fd13f4c24dd512e789495ddc298726d415fc092fee940153
         tags:
             - latest
-            - speakeasy-sdk-regen-1751300111
+            - speakeasy-sdk-regen-1754440400
             - 1.0.0
 targets:
     esv:
         source: Esv-OAS
         sourceNamespace: esv-oas
-        sourceRevisionDigest: sha256:4e4bf2add3c03627f6f29a74c2a189ea0cf2ed97c51fcc5311e486e6e71094ee
-        sourceBlobDigest: sha256:bc1f0db2efbf43f855ff9ff75bbc7bfd69cf014a36f0b84023c017720e96ccfc
+        sourceRevisionDigest: sha256:f46fe7caf10d4567e931fa81d1532054288617e4c1a38fbfe1e04ea139013cdf
+        sourceBlobDigest: sha256:fe29c5d31956d9b7fd13f4c24dd512e789495ddc298726d415fc092fee940153
         codeSamplesNamespace: esv-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:8c07b02b4caefaf4462781ccf4b01b26d1c0d1bbd582bd06d955161b70811d4f
+        codeSamplesRevisionDigest: sha256:e79b2f5d169082cce732ed6cd39bf1c61433d0bb076abee3f2dba20910c782c6
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

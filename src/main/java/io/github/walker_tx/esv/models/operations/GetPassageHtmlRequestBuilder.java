@@ -6,7 +6,7 @@ package io.github.walker_tx.esv.models.operations;
 import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
 
 import io.github.walker_tx.esv.SDKConfiguration;
-import io.github.walker_tx.esv.operations.GetPassageHtmlOperation;
+import io.github.walker_tx.esv.operations.GetPassageHtml;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Exception;
 
@@ -28,7 +28,7 @@ public class GetPassageHtmlRequestBuilder {
     public GetPassageHtmlResponse call() throws Exception {
         
         RequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
-              = new GetPassageHtmlOperation( sdkConfiguration);
+              = new GetPassageHtml.Sync(sdkConfiguration);
 
         return operation.handleResponse(operation.doRequest(request));
     }

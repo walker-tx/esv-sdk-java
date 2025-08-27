@@ -10,7 +10,7 @@ import io.github.walker_tx.esv.utils.SpeakeasyMetadata;
 import io.github.walker_tx.esv.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class Security implements HasSecurity {
 
@@ -29,9 +29,10 @@ public class Security implements HasSecurity {
         return apiKey;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Security withApiKey(String apiKey) {
         Utils.checkNotNull(apiKey, "apiKey");
@@ -39,7 +40,6 @@ public class Security implements HasSecurity {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -50,12 +50,12 @@ public class Security implements HasSecurity {
         }
         Security other = (Security) o;
         return 
-            Objects.deepEquals(this.apiKey, other.apiKey);
+            Utils.enhancedDeepEquals(this.apiKey, other.apiKey);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             apiKey);
     }
     
@@ -64,24 +64,28 @@ public class Security implements HasSecurity {
         return Utils.toString(Security.class,
                 "apiKey", apiKey);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String apiKey;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder apiKey(String apiKey) {
             Utils.checkNotNull(apiKey, "apiKey");
             this.apiKey = apiKey;
             return this;
         }
-        
+
         public Security build() {
+
             return new Security(
                 apiKey);
         }
+
     }
 }

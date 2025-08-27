@@ -19,6 +19,7 @@ Esv.org API Docs for `/v3/passages/html`
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="getPassageHtml" method="get" path="/passage/html/" -->
 ```java
 package hello.world;
 
@@ -33,7 +34,7 @@ public class Application {
     public static void main(String[] args) throws Error, Exception {
 
         Esv sdk = Esv.builder()
-                .apiKey("<YOUR_API_KEY_HERE>")
+                .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
         GetPassageHtmlRequest req = GetPassageHtmlRequest.builder()
@@ -77,6 +78,7 @@ Esv.org API Docs for `/v3/passage/search`
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="searchPassages" method="get" path="/passage/search/" -->
 ```java
 package hello.world;
 
@@ -90,7 +92,7 @@ public class Application {
     public static void main(String[] args) throws Error, Exception {
 
         Esv sdk = Esv.builder()
-                .apiKey("<YOUR_API_KEY_HERE>")
+                .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
         sdk.passages().search()
@@ -134,6 +136,7 @@ Esv.org API Docs for `/v3/passage/audio`
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="getPassageAudio" method="get" path="/passage/audio/" -->
 ```java
 package hello.world;
 
@@ -147,7 +150,7 @@ public class Application {
     public static void main(String[] args) throws Error, Exception {
 
         Esv sdk = Esv.builder()
-                .apiKey("<YOUR_API_KEY_HERE>")
+                .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
         GetPassageAudioResponse res = sdk.passages().getAudio()
@@ -187,6 +190,7 @@ Esv.org API Docs for `/v3/passages/text`
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="getPassageText" method="get" path="/passage/text/" -->
 ```java
 package hello.world;
 
@@ -201,7 +205,7 @@ public class Application {
     public static void main(String[] args) throws Error, Exception {
 
         Esv sdk = Esv.builder()
-                .apiKey("<YOUR_API_KEY_HERE>")
+                .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
         GetPassageTextRequest req = GetPassageTextRequest.builder()

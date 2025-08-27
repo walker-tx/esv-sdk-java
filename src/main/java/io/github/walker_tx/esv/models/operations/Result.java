@@ -13,11 +13,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class Result {
 
+public class Result {
     /**
      * The passage reference
      */
@@ -31,6 +30,7 @@ public class Result {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("content")
     private Optional<String> content;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verses")
@@ -75,9 +75,10 @@ public class Result {
         return (Optional<List<Verse>>) verses;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The passage reference
@@ -87,6 +88,7 @@ public class Result {
         this.reference = Optional.ofNullable(reference);
         return this;
     }
+
 
     /**
      * The passage reference
@@ -106,6 +108,7 @@ public class Result {
         return this;
     }
 
+
     /**
      * The matching passage content
      */
@@ -121,13 +124,13 @@ public class Result {
         return this;
     }
 
+
     public Result withVerses(Optional<? extends List<Verse>> verses) {
         Utils.checkNotNull(verses, "verses");
         this.verses = verses;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -138,17 +141,15 @@ public class Result {
         }
         Result other = (Result) o;
         return 
-            Objects.deepEquals(this.reference, other.reference) &&
-            Objects.deepEquals(this.content, other.content) &&
-            Objects.deepEquals(this.verses, other.verses);
+            Utils.enhancedDeepEquals(this.reference, other.reference) &&
+            Utils.enhancedDeepEquals(this.content, other.content) &&
+            Utils.enhancedDeepEquals(this.verses, other.verses);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            reference,
-            content,
-            verses);
+        return Utils.enhancedHash(
+            reference, content, verses);
     }
     
     @Override
@@ -158,18 +159,20 @@ public class Result {
                 "content", content,
                 "verses", verses);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> reference = Optional.empty();
- 
+
         private Optional<String> content = Optional.empty();
- 
+
         private Optional<? extends List<Verse>> verses = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The passage reference
@@ -189,6 +192,7 @@ public class Result {
             return this;
         }
 
+
         /**
          * The matching passage content
          */
@@ -207,6 +211,7 @@ public class Result {
             return this;
         }
 
+
         public Builder verses(List<Verse> verses) {
             Utils.checkNotNull(verses, "verses");
             this.verses = Optional.ofNullable(verses);
@@ -218,12 +223,12 @@ public class Result {
             this.verses = verses;
             return this;
         }
-        
+
         public Result build() {
+
             return new Result(
-                reference,
-                content,
-                verses);
+                reference, content, verses);
         }
+
     }
 }
