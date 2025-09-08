@@ -21,18 +21,19 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 0.5.0
+  version: 0.6.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: esv
+  asyncMode: enabled
   baseErrorName: EsvError
   clientServerStatusCodesAsErrors: true
   companyEmail: info@mycompany.com
   companyName: walker-tx
   companyURL: github.com/walker-tx
   defaultErrorName: APIException
-  enableAsync: false
   enableCustomCodeRegions: false
+  enableStreamingUploads: false
   flattenGlobalSecurity: true
   githubURL: github.com/walker-tx/esv-sdk-java
   groupID: io.github.walker-tx

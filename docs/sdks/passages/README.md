@@ -95,6 +95,7 @@ public class Application {
                 .apiKey(System.getenv().getOrDefault("API_KEY", ""))
             .build();
 
+
         sdk.passages().search()
                 .query("<value>")
                 .pageSize(20L)
