@@ -4,6 +4,7 @@
 package io.github.walker_tx.esv.operations;
 
 import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+import static io.github.walker_tx.esv.operations.Operations.AsyncRequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.walker_tx.esv.SDKConfiguration;
@@ -13,6 +14,8 @@ import io.github.walker_tx.esv.models.errors.Error;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequest;
 import io.github.walker_tx.esv.models.operations.SearchPassagesResponse;
 import io.github.walker_tx.esv.models.operations.SearchPassagesResponseBody;
+import io.github.walker_tx.esv.utils.Blob;
+import io.github.walker_tx.esv.utils.Exceptions;
 import io.github.walker_tx.esv.utils.HTTPClient;
 import io.github.walker_tx.esv.utils.HTTPRequest;
 import io.github.walker_tx.esv.utils.Hook.AfterErrorContextImpl;
@@ -21,11 +24,14 @@ import io.github.walker_tx.esv.utils.Hook.BeforeRequestContextImpl;
 import io.github.walker_tx.esv.utils.Utils;
 import java.io.InputStream;
 import java.lang.Exception;
+import java.lang.RuntimeException;
 import java.lang.String;
+import java.lang.Throwable;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Optional;
-
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 
 public class SearchPassages {
@@ -73,8 +79,7 @@ public class SearchPassages {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(SearchPassagesRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/passage/search/");
@@ -83,7 +88,7 @@ public class SearchPassages {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    SearchPassagesRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -99,7 +104,7 @@ public class SearchPassages {
         }
 
         private HttpRequest onBuildRequest(SearchPassagesRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, SearchPassagesRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -204,6 +209,109 @@ public class SearchPassages {
                     response.statusCode(),
                     "Unexpected status code received: " + response.statusCode(),
                     Utils.extractByteArrayFromBody(response));
+        }
+    }
+    public static class Async extends Base
+            implements AsyncRequestOperation<SearchPassagesRequest, io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse> {
+
+        public Async(SDKConfiguration sdkConfiguration) {
+            super(sdkConfiguration);
+        }
+
+        private CompletableFuture<HttpRequest> onBuildRequest(SearchPassagesRequest request) throws Exception {
+            HttpRequest req = buildRequest(request, SearchPassagesRequest.class);
+            return this.sdkConfiguration.asyncHooks().beforeRequest(createBeforeRequestContext(), req);
+        }
+
+        private CompletableFuture<HttpResponse<Blob>> onError(HttpResponse<Blob> response, Throwable error) {
+            return this.sdkConfiguration.asyncHooks().afterError(createAfterErrorContext(), response, error);
+        }
+
+        private CompletableFuture<HttpResponse<Blob>> onSuccess(HttpResponse<Blob> response) {
+            return this.sdkConfiguration.asyncHooks().afterSuccess(createAfterSuccessContext(), response);
+        }
+
+        @Override
+        public CompletableFuture<HttpResponse<Blob>> doRequest(SearchPassagesRequest request) {
+            return Exceptions.unchecked(() -> onBuildRequest(request)).get().thenCompose(client::sendAsync)
+                    .handle((resp, err) -> {
+                        if (err != null) {
+                            return onError(null, err);
+                        }
+                        if (Utils.statusCodeMatches(resp.statusCode(), "400", "401", "4XX", "5XX")) {
+                            return onError(resp, null);
+                        }
+                        return CompletableFuture.completedFuture(resp);
+                    })
+                    .thenCompose(Function.identity())
+                    .thenCompose(this::onSuccess);
+        }
+
+        @Override
+        public CompletableFuture<io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse> handleResponse(
+                HttpResponse<Blob> response) {
+            String contentType = response
+                    .headers()
+                    .firstValue("Content-Type")
+                    .orElse("application/octet-stream");
+            io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse.Builder resBuilder =
+                    io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse
+                            .builder()
+                            .contentType(contentType)
+                            .statusCode(response.statusCode())
+                            .rawResponse(response);
+
+            io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse res = resBuilder.build();
+            
+            if (Utils.statusCodeMatches(response.statusCode(), "200")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return response.body().toByteArray().thenApply(bodyBytes -> {
+                        try {
+                            SearchPassagesResponseBody out = Utils.mapper().readValue(
+                                    bodyBytes,
+                                    new TypeReference<>() {
+                                    });
+                            res.withObject(out);
+                            return res;
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return response.body().toByteArray().thenApply(bodyBytes -> {
+                        io.github.walker_tx.esv.models.errors.async.Error out;
+                        try {
+                            out = Utils.mapper().readValue(
+                                    bodyBytes,
+                                    new TypeReference<>() {
+                                    });
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        throw out;
+                    });
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
+                // no content
+                return Utils.createAsyncApiError(response, "API error occurred");
+            }
+            
+            if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
+                // no content
+                return Utils.createAsyncApiError(response, "API error occurred");
+            }
+            
+            return Utils.createAsyncApiError(response, "Unexpected status code received: " + response.statusCode());
         }
     }
 }

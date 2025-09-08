@@ -3,17 +3,17 @@ id: 0f3a7d94-8385-41e1-a22e-a4b1ce0a8aa3
 management:
   docChecksum: f5e30bdf4e4c01ef535ebd7c6bcd7023
   docVersion: 1.0.0
-  speakeasyVersion: 1.606.5
-  generationVersion: 2.687.1
-  releaseVersion: 0.5.0
-  configChecksum: 6a5eb492066b643bfec13d42e20c13dc
+  speakeasyVersion: 1.612.1
+  generationVersion: 2.695.1
+  releaseVersion: 0.6.0
+  configChecksum: 7ab8b6bd26aa65b34c1ee4cd5f491c41
   repoURL: https://github.com/walker-tx/esv-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.45.4
+    core: 3.47.1
     downloadStreams: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.83.0
@@ -45,12 +45,15 @@ generatedFiles:
   - docs/models/operations/Verse.md
   - docs/sdks/esv/README.md
   - docs/sdks/passages/README.md
+  - docs/utils/Blob.md
   - gradle.properties
   - gradle/wrapper/gradle-wrapper.jar
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
   - settings.gradle
+  - src/main/java/io/github/walker_tx/esv/AsyncEsv.java
+  - src/main/java/io/github/walker_tx/esv/AsyncPassages.java
   - src/main/java/io/github/walker_tx/esv/Esv.java
   - src/main/java/io/github/walker_tx/esv/Passages.java
   - src/main/java/io/github/walker_tx/esv/SDKConfiguration.java
@@ -61,6 +64,12 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/models/errors/APIException.java
   - src/main/java/io/github/walker_tx/esv/models/errors/AuthException.java
   - src/main/java/io/github/walker_tx/esv/models/errors/Error.java
+  - src/main/java/io/github/walker_tx/esv/models/errors/UncheckedAPIException.java
+  - src/main/java/io/github/walker_tx/esv/models/errors/async/Error.java
+  - src/main/java/io/github/walker_tx/esv/models/operations//async/GetPassageAudioRequestBuilder.java
+  - src/main/java/io/github/walker_tx/esv/models/operations//async/GetPassageHtmlRequestBuilder.java
+  - src/main/java/io/github/walker_tx/esv/models/operations//async/GetPassageTextRequestBuilder.java
+  - src/main/java/io/github/walker_tx/esv/models/operations//async/SearchPassagesRequestBuilder.java
   - src/main/java/io/github/walker_tx/esv/models/operations/GetPassageAudioRequest.java
   - src/main/java/io/github/walker_tx/esv/models/operations/GetPassageAudioRequestBuilder.java
   - src/main/java/io/github/walker_tx/esv/models/operations/GetPassageAudioResponse.java
@@ -77,14 +86,24 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponse.java
   - src/main/java/io/github/walker_tx/esv/models/operations/SearchPassagesResponseBody.java
   - src/main/java/io/github/walker_tx/esv/models/operations/Verse.java
+  - src/main/java/io/github/walker_tx/esv/models/operations/async/GetPassageAudioResponse.java
+  - src/main/java/io/github/walker_tx/esv/models/operations/async/GetPassageHtmlResponse.java
+  - src/main/java/io/github/walker_tx/esv/models/operations/async/GetPassageTextResponse.java
+  - src/main/java/io/github/walker_tx/esv/models/operations/async/SearchPassagesResponse.java
   - src/main/java/io/github/walker_tx/esv/operations/GetPassageAudio.java
   - src/main/java/io/github/walker_tx/esv/operations/GetPassageHtml.java
   - src/main/java/io/github/walker_tx/esv/operations/GetPassageText.java
   - src/main/java/io/github/walker_tx/esv/operations/Operations.java
   - src/main/java/io/github/walker_tx/esv/operations/SearchPassages.java
+  - src/main/java/io/github/walker_tx/esv/utils/AsyncHook.java
+  - src/main/java/io/github/walker_tx/esv/utils/AsyncHooks.java
+  - src/main/java/io/github/walker_tx/esv/utils/AsyncResponse.java
+  - src/main/java/io/github/walker_tx/esv/utils/AsyncRetries.java
+  - src/main/java/io/github/walker_tx/esv/utils/AsyncRetryableException.java
   - src/main/java/io/github/walker_tx/esv/utils/BackoffStrategy.java
   - src/main/java/io/github/walker_tx/esv/utils/BigDecimalString.java
   - src/main/java/io/github/walker_tx/esv/utils/BigIntegerString.java
+  - src/main/java/io/github/walker_tx/esv/utils/Blob.java
   - src/main/java/io/github/walker_tx/esv/utils/BlockingParser.java
   - src/main/java/io/github/walker_tx/esv/utils/Constants.java
   - src/main/java/io/github/walker_tx/esv/utils/CopiableInputStream.java
@@ -100,6 +119,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/HeaderMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/Helpers.java
   - src/main/java/io/github/walker_tx/esv/utils/Hook.java
+  - src/main/java/io/github/walker_tx/esv/utils/HookAdapters.java
   - src/main/java/io/github/walker_tx/esv/utils/Hooks.java
   - src/main/java/io/github/walker_tx/esv/utils/JSON.java
   - src/main/java/io/github/walker_tx/esv/utils/LazySingletonValue.java
@@ -107,6 +127,7 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/Multipart.java
   - src/main/java/io/github/walker_tx/esv/utils/MultipartFormMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/NameValue.java
+  - src/main/java/io/github/walker_tx/esv/utils/NonRetryableException.java
   - src/main/java/io/github/walker_tx/esv/utils/OneOfDeserializer.java
   - src/main/java/io/github/walker_tx/esv/utils/Options.java
   - src/main/java/io/github/walker_tx/esv/utils/PathParamsMetadata.java
@@ -115,12 +136,14 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/QueryParameters.java
   - src/main/java/io/github/walker_tx/esv/utils/QueryParamsMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/RecordingClient.java
+  - src/main/java/io/github/walker_tx/esv/utils/Reflections.java
   - src/main/java/io/github/walker_tx/esv/utils/RequestBody.java
   - src/main/java/io/github/walker_tx/esv/utils/RequestMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/Response.java
   - src/main/java/io/github/walker_tx/esv/utils/ResponseWithBody.java
   - src/main/java/io/github/walker_tx/esv/utils/Retries.java
   - src/main/java/io/github/walker_tx/esv/utils/RetryConfig.java
+  - src/main/java/io/github/walker_tx/esv/utils/RetryableException.java
   - src/main/java/io/github/walker_tx/esv/utils/Security.java
   - src/main/java/io/github/walker_tx/esv/utils/SecurityMetadata.java
   - src/main/java/io/github/walker_tx/esv/utils/SerializedBody.java
@@ -132,12 +155,15 @@ generatedFiles:
   - src/main/java/io/github/walker_tx/esv/utils/Types.java
   - src/main/java/io/github/walker_tx/esv/utils/Utf8UrlEncoder.java
   - src/main/java/io/github/walker_tx/esv/utils/Utils.java
+  - src/main/java/io/github/walker_tx/esv/utils/pagination/AsyncPaginator.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/CursorTracker.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/OffsetTracker.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/PageTracker.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/Paginator.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/ProgressTrackerStrategy.java
   - src/main/java/io/github/walker_tx/esv/utils/pagination/ResultsPageTracker.java
+  - src/main/java/io/github/walker_tx/esv/utils/reactive/EventStream.java
+  - src/main/java/io/github/walker_tx/esv/utils/reactive/ReactiveUtils.java
 examples:
   getPassageHtml:
     StandardReference:

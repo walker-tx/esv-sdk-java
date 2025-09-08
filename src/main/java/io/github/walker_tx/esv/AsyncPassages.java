@@ -3,45 +3,46 @@
  */
 package io.github.walker_tx.esv;
 
-import static io.github.walker_tx.esv.operations.Operations.RequestOperation;
+import static io.github.walker_tx.esv.operations.Operations.AsyncRequestOperation;
 
 import io.github.walker_tx.esv.models.operations.GetPassageAudioRequest;
-import io.github.walker_tx.esv.models.operations.GetPassageAudioRequestBuilder;
-import io.github.walker_tx.esv.models.operations.GetPassageAudioResponse;
 import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequest;
-import io.github.walker_tx.esv.models.operations.GetPassageHtmlRequestBuilder;
-import io.github.walker_tx.esv.models.operations.GetPassageHtmlResponse;
 import io.github.walker_tx.esv.models.operations.GetPassageTextRequest;
-import io.github.walker_tx.esv.models.operations.GetPassageTextRequestBuilder;
-import io.github.walker_tx.esv.models.operations.GetPassageTextResponse;
 import io.github.walker_tx.esv.models.operations.SearchPassagesRequest;
-import io.github.walker_tx.esv.models.operations.SearchPassagesRequestBuilder;
-import io.github.walker_tx.esv.models.operations.SearchPassagesResponse;
+import io.github.walker_tx.esv.models.operations.async.GetPassageAudioRequestBuilder;
+import io.github.walker_tx.esv.models.operations.async.GetPassageAudioResponse;
+import io.github.walker_tx.esv.models.operations.async.GetPassageHtmlRequestBuilder;
+import io.github.walker_tx.esv.models.operations.async.GetPassageHtmlResponse;
+import io.github.walker_tx.esv.models.operations.async.GetPassageTextRequestBuilder;
+import io.github.walker_tx.esv.models.operations.async.GetPassageTextResponse;
+import io.github.walker_tx.esv.models.operations.async.SearchPassagesRequestBuilder;
+import io.github.walker_tx.esv.models.operations.async.SearchPassagesResponse;
 import io.github.walker_tx.esv.operations.GetPassageAudio;
 import io.github.walker_tx.esv.operations.GetPassageHtml;
 import io.github.walker_tx.esv.operations.GetPassageText;
 import io.github.walker_tx.esv.operations.SearchPassages;
-import java.lang.Exception;
 import java.lang.String;
+import java.util.concurrent.CompletableFuture;
 
 
-public class Passages {
+public class AsyncPassages {
     private final SDKConfiguration sdkConfiguration;
-    private final AsyncPassages asyncSDK;
+    private final Passages syncSDK;
 
-    Passages(SDKConfiguration sdkConfiguration) {
+    AsyncPassages(Passages syncSDK, SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
-        this.asyncSDK = new AsyncPassages(this, sdkConfiguration);
+        this.syncSDK = syncSDK;
     }
 
     /**
-     * Switches to the async SDK.
+     * Switches to the sync SDK.
      * 
-     * @return The async SDK
+     * @return The sync SDK
      */
-    public AsyncPassages async() {
-        return asyncSDK;
+    public Passages sync() {
+        return syncSDK;
     }
+
 
     /**
      * Get Bible passage HTML
@@ -50,7 +51,7 @@ public class Passages {
      * 
      * <p>https://api.esv.org/docs/passage-html/ - Esv.org API Docs for `/v3/passages/html`
      * 
-     * @return The call builder
+     * @return The async call builder
      */
     public GetPassageHtmlRequestBuilder getHtml() {
         return new GetPassageHtmlRequestBuilder(sdkConfiguration);
@@ -64,14 +65,15 @@ public class Passages {
      * <p>https://api.esv.org/docs/passage-html/ - Esv.org API Docs for `/v3/passages/html`
      * 
      * @param request The request object containing all the parameters for the API call.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @return CompletableFuture&lt;GetPassageHtmlResponse&gt; - The async response
      */
-    public GetPassageHtmlResponse getHtml(GetPassageHtmlRequest request) throws Exception {
-        RequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
-              = new GetPassageHtml.Sync(sdkConfiguration);
-        return operation.handleResponse(operation.doRequest(request));
+    public CompletableFuture<GetPassageHtmlResponse> getHtml(GetPassageHtmlRequest request) {
+        AsyncRequestOperation<GetPassageHtmlRequest, GetPassageHtmlResponse> operation
+              = new GetPassageHtml.Async(sdkConfiguration);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
+
 
     /**
      * Search Bible passages
@@ -80,7 +82,7 @@ public class Passages {
      * 
      * <p>https://api.esv.org/docs/passage-search/ - Esv.org API Docs for `/v3/passage/search`
      * 
-     * @return The call builder
+     * @return The async call builder
      */
     public SearchPassagesRequestBuilder search() {
         return new SearchPassagesRequestBuilder(sdkConfiguration);
@@ -96,12 +98,11 @@ public class Passages {
      * @param query The text to search for
      * @param pageSize Number of results to return per page
      * @param page Page number to return
-     * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @return CompletableFuture&lt;SearchPassagesResponse&gt; - The async response
      */
-    public SearchPassagesResponse search(
+    public CompletableFuture<SearchPassagesResponse> search(
             String query, long pageSize,
-            long page) throws Exception {
+            long page) {
         SearchPassagesRequest request =
             SearchPassagesRequest
                 .builder()
@@ -109,10 +110,12 @@ public class Passages {
                 .pageSize(pageSize)
                 .page(page)
                 .build();
-        RequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
-              = new SearchPassages.Sync(sdkConfiguration);
-        return operation.handleResponse(operation.doRequest(request));
+        AsyncRequestOperation<SearchPassagesRequest, SearchPassagesResponse> operation
+              = new SearchPassages.Async(sdkConfiguration);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
+
 
     /**
      * Get Bible passage audio
@@ -121,7 +124,7 @@ public class Passages {
      * 
      * <p>https://api.esv.org/docs/passage-audio/ - Esv.org API Docs for `/v3/passage/audio`
      * 
-     * @return The call builder
+     * @return The async call builder
      */
     public GetPassageAudioRequestBuilder getAudio() {
         return new GetPassageAudioRequestBuilder(sdkConfiguration);
@@ -135,19 +138,20 @@ public class Passages {
      * <p>https://api.esv.org/docs/passage-audio/ - Esv.org API Docs for `/v3/passage/audio`
      * 
      * @param query Bible passage reference (e.g., "John 3:16" or "43011016")
-     * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @return CompletableFuture&lt;GetPassageAudioResponse&gt; - The async response
      */
-    public GetPassageAudioResponse getAudio(String query) throws Exception {
+    public CompletableFuture<GetPassageAudioResponse> getAudio(String query) {
         GetPassageAudioRequest request =
             GetPassageAudioRequest
                 .builder()
                 .query(query)
                 .build();
-        RequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
-              = new GetPassageAudio.Sync(sdkConfiguration);
-        return operation.handleResponse(operation.doRequest(request));
+        AsyncRequestOperation<GetPassageAudioRequest, GetPassageAudioResponse> operation
+              = new GetPassageAudio.Async(sdkConfiguration);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
+
 
     /**
      * Get Bible passage text
@@ -156,7 +160,7 @@ public class Passages {
      * 
      * <p>https://api.esv.org/docs/passage-text/ - Esv.org API Docs for `/v3/passages/text`
      * 
-     * @return The call builder
+     * @return The async call builder
      */
     public GetPassageTextRequestBuilder getText() {
         return new GetPassageTextRequestBuilder(sdkConfiguration);
@@ -170,13 +174,13 @@ public class Passages {
      * <p>https://api.esv.org/docs/passage-text/ - Esv.org API Docs for `/v3/passages/text`
      * 
      * @param request The request object containing all the parameters for the API call.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @return CompletableFuture&lt;GetPassageTextResponse&gt; - The async response
      */
-    public GetPassageTextResponse getText(GetPassageTextRequest request) throws Exception {
-        RequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
-              = new GetPassageText.Sync(sdkConfiguration);
-        return operation.handleResponse(operation.doRequest(request));
+    public CompletableFuture<GetPassageTextResponse> getText(GetPassageTextRequest request) {
+        AsyncRequestOperation<GetPassageTextRequest, GetPassageTextResponse> operation
+              = new GetPassageText.Async(sdkConfiguration);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
 
 }

@@ -42,6 +42,7 @@ public class Esv {
     }
 
     private final SDKConfiguration sdkConfiguration;
+    private final AsyncEsv asyncSDK;
 
     /**
      * The Builder class allows the configuration of a new instance of the SDK.
@@ -199,5 +200,16 @@ public class Esv {
                         this.sdkConfiguration.client()));
         this.sdkConfiguration.setServerUrl(data.baseUrl());
         this.sdkConfiguration.setClient(data.client());
+        this.asyncSDK = new AsyncEsv(this, sdkConfiguration);
     }
+
+    /**
+     * Switches to the async SDK.
+     * 
+     * @return The async SDK
+     */
+    public AsyncEsv async() {
+        return asyncSDK;
+    }
+
 }
